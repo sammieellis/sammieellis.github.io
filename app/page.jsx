@@ -1,312 +1,329 @@
-const External = () => <span aria-hidden="true">↗</span>;
+import FunFactAtom from "./components/FunFactAtom";
+import PressureExplorer from "./components/PressureExplorer";
+
+const SCHOLAR = "https://scholar.google.com/citations?user=3hrvXUYAAAAJ&hl=en";
+const LINKEDIN = "https://www.linkedin.com/in/samantha-l-ellis/";
+const EMAIL = "mailto:samantha.scott.309@my.csun.edu";
+const CV = "/Samantha_Ellis_CV.pdf";
+
+const navTiles = [
+  { n: 1, sym: "Rs", label: "Research", href: "#research", color: "#8EE3C8" },
+  { n: 2, sym: "Pb", label: "Publications", href: "#publications", color: "#C9B8FF" },
+  { n: 3, sym: "Pr", label: "Presentations", href: "#presentations", color: "#FFD66B" },
+  { n: 4, sym: "Te", label: "Teaching", href: "#teaching", color: "#FFB3C9" },
+  { n: 5, sym: "Nw", label: "News", href: "#news", color: "#A8DBFF" },
+];
 
 const publications = [
   {
-    year: "2026",
+    year: "2026", venue: "J. Materials Informatics 6, 45", color: "#E8E1FF", tape: "#FFD66B", tilt: -1.5,
     title: "Prediction of Electron Localization Functions from Superposed Atomic Densities for Accelerated Superhydride Discovery",
     authors: <>A. Ellis, <strong>S. Ellis</strong>, and M. Miao</>,
-    journal: "Journal of Materials Informatics, 6, 45",
     href: "https://www.oaepublish.com/articles/jmi.2026.44",
     preview: "/publication-elf-preview.jpg",
-    previewAlt: "Predicted and DFT electron localization function isosurfaces for AuGa and calcium",
-    previewCredit: "Journal of Materials Informatics, Fig. 4",
+    alt: "Predicted and DFT electron localization function isosurfaces for AuGa and calcium",
+    credit: "Journal of Materials Informatics, Fig. 4",
   },
   {
-    year: "2026",
+    year: "2026", venue: "J. Phys. Chem. Lett.", color: "#D9F5EA", tape: "#FF8FB1", tilt: 1,
     title: "Emerging Electride Behavior and Metallization in Molecular Hydrogen under High Pressure",
     authors: <>A. Ellis, <strong>S. Ellis</strong>, A. Pandit, and M. Miao</>,
-    journal: "Journal of Physical Chemistry Letters",
     href: "https://doi.org/10.1021/acs.jpclett.6c01415",
     preview: "/publication-hydrogen-preview.png",
-    previewAlt: "Interstitial-character band plots for molecular hydrogen structures under pressure",
-    previewCredit: "ACS Supporting Information, Fig. S2",
+    alt: "Interstitial-character band plots for molecular hydrogen structures under pressure",
+    credit: "ACS Supporting Information, Fig. S2",
   },
   {
-    year: "2025",
+    year: "2025", venue: "PNAS 122, e2414911122", color: "#FFE3DA", tape: "#8EE3C8", tilt: -0.8,
     title: "Pressure-Induced Redox Reversal of Iron and the Distribution of Elements in Deep Earth",
     authors: <>X. Wang, X. Feng, J. Li, Y. Lv, A. Ellis, <strong>S. Scott</strong>, et al.</>,
-    journal: "Proceedings of the National Academy of Sciences, 122, e2414911122",
     href: "https://doi.org/10.1073/pnas.2414911122",
     preview: "/publication-iron-redox-preview.png",
-    previewAlt: "Electron localization and pressure-dependent formation enthalpy from the published iron redox study",
-    previewCredit: "PNAS, Fig. 4",
+    alt: "Electron localization and pressure-dependent formation enthalpy from the published iron redox study",
+    credit: "PNAS, Fig. 4",
   },
 ];
+
+const presentations = [
+  {
+    kind: "Poster", color: "#8EE3C8", tilt: -1, button: "View poster",
+    date: "AUG 2026 · KNOXVILLE, TN", venue: "2026 CNMS User Meeting",
+    title: "Modeling Gas-Assisted Etching of MoS₂ and WS₂ with Machine-Learned Interatomic Potentials",
+    pdf: "/CNMS_2026_TMD_Etching_Poster.pdf", preview: "/CNMS_2026_TMD_Etching_Poster_preview.png",
+    alt: "Preview of the 2026 CNMS User Meeting TMD etching poster",
+  },
+  {
+    kind: "Talk", color: "#FFB39A", tilt: 0.8, button: "View slides",
+    date: "MAR 2026 · DENVER, CO", venue: "APS Global Physics Summit",
+    title: "Pressure-Induced Redox Reversal of Iron and the Distribution of Elements in Deep Earth",
+    pdf: "/APS_2026_Fe_Redox_Talk.pdf", preview: "/APS_2026_Fe_Redox_Talk_preview.png",
+    alt: "Preview of the APS 2026 iron redox talk",
+  },
+  {
+    kind: "Poster", color: "#FFD66B", tilt: -0.6, button: "View poster",
+    date: "MAR 2025 · ANAHEIM, CA", venue: "APS Global Physics Summit",
+    title: "Insulator-to-Metal Transition of Molecular Hydrogen Under Pressure",
+    pdf: "/APS_2025_Molecular_Hydrogen_Poster.pdf", preview: "/APS_2025_Molecular_Hydrogen_Poster_preview.png",
+    alt: "Preview of the APS 2025 molecular hydrogen poster",
+  },
+];
+
+const roles = [
+  { badge: "TA", color: "#8EE3C8", title: "Teaching Assistant", meta: "General & Organic Chemistry Labs · CSUN",
+    text: "I taught six laboratory sections across general and organic chemistry, combining pre-lab instruction with hands-on guidance in quantitative analysis, spectroscopy, scientific documentation, and lab safety." },
+  { badge: "Pm", color: "#C9B8FF", title: "Graduate Peer Mentor", meta: "Office of Undergraduate Research · CSUN",
+    text: "I led workshops and individual advising for students joining research groups, preparing conference materials, applying to graduate programs, and developing CVs and personal statements. I also supported campus outreach events connecting prospective and high-school students with research opportunities." },
+  { badge: "Jc", color: "#FFD66B", title: "Journal Club co-founder", meta: "Chemistry & Biochemistry Journal Club · CSUN",
+    text: "A monthly, student-led forum for reading current chemical literature: a low-pressure place to practice presenting papers, ask technical questions, and trade feedback." },
+];
+
+const quotes = [
+  { text: "Explains concepts in an efficient but also easy to understand way.", who: "General Chemistry II Lab student", color: "#FFFFFF", side: "left" },
+  { text: "Sammie was very kind and patient and really easy to talk to throughout the semester.", who: "General Chemistry II Lab student", color: "#D9F5EA", side: "right" },
+  { text: "She does want us to figure out things before we go to her, which I appreciate.", who: "Organic Chemistry I Lab student", color: "#FFF3C4", side: "left" },
+];
+
+const photos = [
+  { src: "/journal-club-discussion.jpeg", alt: "Members of the CSUN Chemistry and Biochemistry Journal Club after a meeting", caption: "Journal Club meetup", tilt: -2 },
+  { src: "/research-showcase-presentation.jpg", alt: "Samantha Ellis presenting deep-Earth chemistry at a CSUN student research showcase", caption: "Deep-Earth chemistry at a student research showcase (MSA × SACNAS)", tilt: 1.5 },
+  { src: "/cv-workshop.jpg", alt: "Samantha Ellis leading a curriculum vitae workshop for CSUN students", caption: "Leading a CV workshop for the Chem & Biochem Club", tilt: -1 },
+  { src: "/chemistry-club-pi-day.jpg", alt: "Samantha Ellis with members of the CSUN Chemistry and Biochemistry Club at a Pi Day event", caption: "Women in Science Pi Day booth", tilt: 2 },
+  { src: "/journal-club-materials-chemistry.jpeg", alt: "CSUN Chemistry and Biochemistry Journal Club members at a materials chemistry discussion", caption: "Materials chemistry night at Journal Club", tilt: -1.5 },
+];
+
+const news = [
+  { href: "https://newsroom.csun.edu/2026/05/14/grad-student-and-undergrad-win-national-science-foundation-research-fellowship/",
+    img: "/csun-newsroom-grfp.jpg", alt: "Samantha Ellis standing beside her computational materials research poster",
+    meta: "MAY 2026 · CSUN NEWSROOM", title: "Graduate researchers receive National Science Foundation fellowships", isNew: true, color: "#FFF3C4" },
+  { href: "https://newsroom.csun.edu/2025/11/18/study-by-csun-prof-upends-understanding-of-what-happens-to-iron-at-earths-core/",
+    img: "/csun-newsroom-iron-core.jpg", alt: "Illustration of Earth and its core accompanying a CSUN Newsroom article about iron under pressure",
+    meta: "NOV 2025 · CSUN NEWSROOM", title: "Study by CSUN Prof Upends Understanding of What Happens to Iron at Earth’s Core", color: "#FFFFFF" },
+  { href: "https://t.e2ma.net/webview/it10xk/de0c2a38558e5a239902e187dd02712e",
+    img: "/our-admitted-matadors-day.jpeg", alt: "Office of Undergraduate Research newsletter preview featuring Admitted Matadors Day",
+    meta: "OFFICE OF UNDERGRADUATE RESEARCH NEWSLETTER", title: "Graduate peer mentoring and undergraduate research outreach", color: "#FFFFFF" },
+];
+
+function Sparkle({ className, style }) {
+  return (
+    <svg className={`sparkle ${className || ""}`} style={style} viewBox="-12 -12 24 24" aria-hidden="true">
+      <path d="M0,-11 l3,8 l8,3 l-8,3 l-3,8 l-3,-8 l-8,-3 l8,-3 z" fill="#FFD66B" stroke="#2D2440" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function DocIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M4,1.5 h5.5 l3,3 v10 h-8.5 z M9.5,1.5 v3 h3" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 export default function Page() {
   return (
     <>
       <header className="site-header">
-        <div className="header-inner">
-          <a className="site-name" href="#top">Samantha Ellis</a>
-          <nav aria-label="Primary navigation">
-            <a href="#about">About</a>
-            <a href="#research">Research</a>
-            <a href="#publications">Publications</a>
-            <a href="#presentations">Presentations</a>
-            <a href="#teaching">Teaching &amp; Mentoring</a>
-            <a href="#news">News</a>
-            <a href="/Samantha_Ellis_CV.pdf" target="_blank">CV</a>
-          </nav>
-        </div>
-        <nav className="mobile-section-nav" aria-label="Mobile section navigation">
-          <a href="#about">About</a>
-          <a href="#research">Research</a>
-          <a href="#publications">Publications</a>
-          <a href="#presentations">Presentations</a>
-          <a href="#teaching">Teaching</a>
-          <a href="#news">News</a>
+        <a className="brand" href="#top">
+          <svg width="44" height="44" viewBox="-30 -30 60 60" aria-hidden="true">
+            <g className="orbit" style={{ animationDuration: "5s" }}>
+              <circle cx="24" cy="0" r="3.5" fill="#FFD66B" stroke="#2D2440" strokeWidth="1.2" />
+              <circle cx="-24" cy="0" r="3.5" fill="#FFD66B" stroke="#2D2440" strokeWidth="1.2" />
+            </g>
+            <circle r="14" fill="#FF8FB1" stroke="#2D2440" strokeWidth="2" />
+            <circle cx="-5" cy="-2" r="2" fill="#2D2440" />
+            <circle cx="5" cy="-2" r="2" fill="#2D2440" />
+            <path d="M-4,4 Q0,8 4,4" fill="none" stroke="#2D2440" strokeWidth="1.6" strokeLinecap="round" />
+          </svg>
+          <span>Samantha Ellis</span>
+        </a>
+        <nav className="tiles" aria-label="Primary navigation">
+          {navTiles.map((t) => (
+            <a key={t.sym} className="tile" href={t.href} style={{ background: t.color }}>
+              <span className="tile-n">{t.n}</span>
+              <span className="tile-sym">{t.sym}</span>
+              <span className="tile-label">{t.label}</span>
+            </a>
+          ))}
+          <a className="tile tile-dark" href={CV} target="_blank" rel="noreferrer">
+            <span className="tile-n">6</span>
+            <span className="tile-sym">Cv</span>
+            <span className="tile-label">CV ↗</span>
+          </a>
         </nav>
       </header>
 
       <main id="top">
-        <section className="intro container">
-          <div className="intro-text">
-            <p className="role">NSF Graduate Research Fellow</p>
-            <h1>Samantha Ellis</h1>
-            <p className="affiliation">M.S. Chemistry Candidate · California State University, Northridge</p>
-            <p className="summary">
-              I am a computational materials chemist studying chemical bonding and reactivity using electronic-structure theory, atomistic simulation, and machine learning.
+        <section className="hero wrap">
+          <Sparkle className="twinkle" style={{ left: "6%", top: "4%" }} />
+          <Sparkle className="twinkle" style={{ left: "48%", top: "8%", animationDelay: ".8s" }} />
+          <Sparkle className="twinkle" style={{ right: "3%", bottom: "6%", animationDelay: "1.5s" }} />
+          <div className="hero-copy">
+            <div className="badges">
+              <span className="badge badge-yellow">NSF Graduate Research Fellow</span>
+              <span className="badge">M.S. Chemistry · CSUN</span>
+              <span className="badge">Oak Ridge National Lab</span>
+            </div>
+            <h1>Hi, I’m <span className="pink">Samantha!</span></h1>
+            <p className="lead">
+              I’m a computational materials chemist. I squeeze atoms (on a computer!) to watch chemical bonds rewrite their own rules, from{" "}
+              <mark className="hl-peach">iron at Earth’s core</mark> to <mark className="hl-lav">core electrons that start bonding</mark>, and I train{" "}
+              <mark className="hl-mint">machine learning</mark> to speed up the hunt for new superhydrides.
             </p>
-            <div className="profile-links">
-              <a href="mailto:samantha.scott.309@my.csun.edu">Email</a>
-              <a href="https://www.linkedin.com/in/samantha-l-ellis/" target="_blank" rel="noreferrer">LinkedIn <External /></a>
-              <a href="https://scholar.google.com/citations?user=3hrvXUYAAAAJ&hl=en" target="_blank" rel="noreferrer">Google Scholar <External /></a>
-              <a href="/Samantha_Ellis_CV.pdf" target="_blank">Curriculum Vitae</a>
+            <p className="sub">
+              Currently: M.S. research with Prof. Maosheng Miao at CSUN, and a Research Student Internship at Oak Ridge National Laboratory with Eva Zarkadoula and Jingsong Huang.
+            </p>
+            <div className="buttons">
+              <a className="btn btn-pink" href={EMAIL}>Say hi</a>
+              <a className="btn" href={SCHOLAR} target="_blank" rel="noreferrer">Google Scholar ↗</a>
+              <a className="btn" href={LINKEDIN} target="_blank" rel="noreferrer">LinkedIn ↗</a>
             </div>
           </div>
-          <figure className="portrait">
-            <img src="/samantha-ellis.jpg" alt="Samantha Ellis holding her dog" />
-          </figure>
+          <FunFactAtom />
         </section>
 
-        <div className="container content">
-          <section id="about" className="page-section about">
-            <h2>About</h2>
-            <div className="section-body two-column-copy">
-              <p>
-                I am pursuing an M.S. in Chemistry at California State University, Northridge, where I work with Professor Maosheng Miao. My research uses static DFT, ab initio molecular dynamics, crystal structure prediction, electronic-structure analysis, and machine-learned interatomic potentials to investigate chemical bonding and reactivity under high pressure and in two-dimensional materials.
-              </p>
-              <p>
-                In 2026, I joined Oak Ridge National Laboratory as a Research Student Intern working with Eva Zarkadoula and Jingsong Huang. At ORNL, I use density functional theory and machine-learned interatomic potentials to study fluorine-mediated reactions on transition-metal dichalcogenide surfaces.
-              </p>
+        <section id="research" className="panel squeeze">
+          <div className="section-head">
+            <div>
+              <span className="eyebrow">MY RESEARCH · INTERACTIVE</span>
+              <h2>Squeeze the atoms!</h2>
             </div>
-          </section>
+            <p>Drag the slider from 0 GPa (everyday pressure) up to the millions of atmospheres where even hydrogen changes character. Each stop is one of my projects.</p>
+          </div>
+          <PressureExplorer />
+        </section>
 
-          <section id="research" className="page-section">
-            <div className="section-heading">
-              <h2>Research</h2>
-              <p>Selected current and recent projects</p>
-            </div>
-            <div className="research-projects">
-              <article>
-                <h3>High-pressure chemistry and core-electron reactivity</h3>
-                <p>
-                  My M.S. thesis examines pressure-induced Cs 5p core reactivity in cesium polyoxides. I use crystal-structure prediction, ternary convex-hull construction, XANES simulation, and electronic-structure analysis to identify candidate phases and spectroscopic signatures for experiment.
-                </p>
-                <p className="methods">Methods: CALYPSO, ternary convex hulls, FEFF XANES, Bader charge, electronic-structure analysis</p>
-              </article>
-              <article>
-                <h3>Machine-learned modeling of gas-assisted etching in two-dimensional materials</h3>
-                <p>
-                  At Oak Ridge National Laboratory, I am fine-tuning a machine-learned interatomic potential using reaction pathways modeled with AIMD and MLFF-AIMD. The goal is to scale simulations of fluorine-driven etching in MoS₂ and WS₂ to nanosecond timescales and nanoscale length scales.
-                </p>
-                <p className="methods">Methods: AIMD, MLFF-AIMD, MLIP fine-tuning, reaction-pathway modeling</p>
-              </article>
-              <article>
-                <h3>Iron redox chemistry under deep-Earth conditions</h3>
-                <p>
-                  I used HSE DFT to construct pressure-dependent convex hulls and generate Bader charge plots across Fe–p-block systems, helping demonstrate that iron can reverse from an electron donor to an electron acceptor under core pressures.
-                </p>
-                <p className="methods">Methods: HSE DFT, convex-hull construction, Bader charge analysis and visualization</p>
-              </article>
-            </div>
-          </section>
-
-          <section id="publications" className="page-section">
-            <div className="section-heading">
+        <section id="publications" className="wrap section">
+          <div className="section-head">
+            <div>
+              <span className="eyebrow">PEER-REVIEWED PAPERS · CLICK A CARD TO READ</span>
               <h2>Publications</h2>
-              <a href="https://scholar.google.com/citations?user=3hrvXUYAAAAJ&hl=en" target="_blank" rel="noreferrer">View Google Scholar <External /></a>
             </div>
-            <ol className="publication-list">
-              {publications.map((publication) => (
-                <li key={publication.title}>
-                  <span className="publication-year">{publication.year}</span>
-                  <div className={publication.preview ? "publication-main has-preview" : "publication-main"}>
-                    {publication.preview && (
-                      <a className="publication-preview" href={publication.href} target="_blank" rel="noreferrer" aria-label={`View ${publication.title}`}>
-                        <img src={publication.preview} alt={publication.previewAlt} />
-                        <span>{publication.previewCredit}</span>
-                      </a>
-                    )}
-                    <div className="publication-copy">
-                      <h3>
-                        {publication.href ? <a href={publication.href} target="_blank" rel="noreferrer">{publication.title}</a> : publication.title}
-                      </h3>
-                      <p>{publication.authors}</p>
-                      <p className="journal">{publication.journal}</p>
+            <a className="underline-link" href={SCHOLAR} target="_blank" rel="noreferrer">Everything on Google Scholar ↗</a>
+          </div>
+          <div className="card-grid">
+            {publications.map((p) => (
+              <a key={p.title} className="card wiggle" href={p.href} target="_blank" rel="noreferrer" style={{ background: p.color, "--tilt": `${p.tilt}deg` }}>
+                <span className="tape" style={{ background: p.tape }} aria-hidden="true" />
+                <figure className="thumb">
+                  <img src={p.preview} alt={p.alt} loading="lazy" />
+                  <figcaption>{p.credit}</figcaption>
+                </figure>
+                <span className="mono small">{p.year} · {p.venue}</span>
+                <span className="card-title">{p.title}</span>
+                <span className="authors">{p.authors}</span>
+                <span className="chip-btn">Read the paper ↗</span>
+              </a>
+            ))}
+          </div>
+          <p className="note">Psst: earlier work may be listed under <strong>Samantha Scott</strong>.</p>
+        </section>
+
+        <section id="presentations" className="wrap section">
+          <div className="section-head">
+            <div>
+              <span className="eyebrow">TALKS &amp; POSTERS · SLIDES AND POSTERS OPEN AS PDFs</span>
+              <h2>Presentations</h2>
+            </div>
+          </div>
+          <div className="card-grid">
+            {presentations.map((p) => (
+              <a key={p.pdf} className="card wiggle pres" href={p.pdf} target="_blank" rel="noreferrer" style={{ "--tilt": `${p.tilt}deg` }}>
+                <div className="pres-thumb">
+                  <img src={p.preview} alt={p.alt} loading="lazy" />
+                  <span className="kind" style={{ background: p.color }}>{p.kind}</span>
+                  <span className="pdf mono">PDF</span>
+                </div>
+                <span className="mono small muted">{p.date}</span>
+                <span className="card-title">{p.title}</span>
+                <span className="authors">{p.venue}</span>
+                <span className="chip-btn" style={{ background: p.color }}><DocIcon />{p.button}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section id="teaching" className="panel teaching">
+          <div className="teaching-grid">
+            <div className="teaching-copy">
+              <span className="eyebrow">TEACHING · MENTORING · SERVICE</span>
+              <h2>Your path can be nonlinear and still lead somewhere meaningful.</h2>
+              <p>
+                As a first-generation college student, I know how much a good mentor matters. I try to be that for others: I challenge students to grow, help them work through uncertainty, and remind them they don’t need everything figured out.
+              </p>
+              <div className="roles">
+                {roles.map((r) => (
+                  <div key={r.title} className="role">
+                    <span className="role-badge" style={{ background: r.color }}>{r.badge}</span>
+                    <div>
+                      <strong>{r.title}</strong>
+                      <span className="role-meta">{r.meta}</span>
+                      <p>{r.text}</p>
                     </div>
                   </div>
-                </li>
+                ))}
+              </div>
+            </div>
+            <div className="quotes">
+              <span className="eyebrow">WHAT MY STUDENTS SAID (ANONYMOUSLY!)</span>
+              {quotes.map((q) => (
+                <blockquote key={q.text} className={`bubble bubble-${q.side}`} style={{ background: q.color }}>
+                  <p>“{q.text}”</p>
+                  <cite>{q.who}</cite>
+                </blockquote>
               ))}
-            </ol>
-            <p className="name-note">Earlier publications and presentations may appear under Samantha Scott.</p>
-          </section>
-
-          <section id="presentations" className="page-section">
-            <h2>Presentations</h2>
-            <div className="presentation-list">
-              <article>
-                <a className="presentation-preview" href="/CNMS_2026_TMD_Etching_Poster.pdf" target="_blank" rel="noreferrer" aria-label="Open 2026 CNMS User Meeting poster PDF">
-                  <img src="/CNMS_2026_TMD_Etching_Poster_preview.png" alt="Preview of the 2026 CNMS User Meeting TMD etching poster" />
-                </a>
-                <div className="presentation-copy">
-                  <p className="presentation-type">Poster presentation</p>
-                  <h3>Modeling Gas-Assisted Etching of MoS₂ and WS₂ with Machine-Learned Interatomic Potentials</h3>
-                  <p className="item-meta">2026 CNMS User Meeting · Knoxville, Tennessee · August 2026</p>
-                  <a href="/CNMS_2026_TMD_Etching_Poster.pdf" target="_blank" rel="noreferrer">View poster (PDF)</a>
-                </div>
-              </article>
-              <article>
-                <a className="presentation-preview" href="/APS_2026_Fe_Redox_Talk.pdf" target="_blank" rel="noreferrer" aria-label="Open APS 2026 talk PDF">
-                  <img src="/APS_2026_Fe_Redox_Talk_preview.png" alt="Preview of the APS 2026 iron redox talk" />
-                </a>
-                <div className="presentation-copy">
-                  <p className="presentation-type">Oral presentation</p>
-                  <h3>Pressure-Induced Redox Reversal of Iron and the Distribution of Elements in Deep Earth</h3>
-                  <p className="item-meta">APS Global Physics Summit · Denver, Colorado · March 2026</p>
-                  <a href="/APS_2026_Fe_Redox_Talk.pdf" target="_blank" rel="noreferrer">View slides (PDF)</a>
-                </div>
-              </article>
-              <article>
-                <a className="presentation-preview" href="/APS_2025_Molecular_Hydrogen_Poster.pdf" target="_blank" rel="noreferrer" aria-label="Open APS 2025 poster PDF">
-                  <img src="/APS_2025_Molecular_Hydrogen_Poster_preview.png" alt="Preview of the APS 2025 molecular hydrogen poster" />
-                </a>
-                <div className="presentation-copy">
-                  <p className="presentation-type">Poster presentation</p>
-                  <h3>Insulator-to-Metal Transition of Molecular Hydrogen Under Pressure</h3>
-                  <p className="item-meta">APS Global Physics Summit · Anaheim, California · March 2025</p>
-                  <a href="/APS_2025_Molecular_Hydrogen_Poster.pdf" target="_blank" rel="noreferrer">View poster (PDF)</a>
-                </div>
-              </article>
             </div>
-          </section>
-
-          <section id="teaching" className="page-section teaching-section">
-            <h2>Teaching, Mentoring &amp; Service</h2>
-            <div className="teaching-content">
-              <p className="teaching-intro">
-                As a first-generation college student, I know how important it is to have mentors who can help make an unfamiliar academic path feel navigable. I want to provide that support for other students by challenging them to grow, helping them work through uncertainty, and showing them that they do not need to have everything figured out. Their path can be nonlinear and still lead somewhere meaningful.
-              </p>
-
-              <div className="teaching-list">
-                <article>
-                  <h3>Teaching Assistant</h3>
-                  <p className="item-meta">General Chemistry and Organic Chemistry Laboratories · CSUN</p>
-                  <p>I taught six laboratory sections across general and organic chemistry, combining pre-laboratory instruction with hands-on guidance in quantitative analysis, spectroscopy, scientific documentation, and laboratory safety.</p>
-                </article>
-                <article>
-                  <h3>Graduate Peer Mentor</h3>
-                  <p className="item-meta">Office of Undergraduate Research · CSUN</p>
-                  <p>I led workshops and individual advising for students joining research groups, preparing conference materials, applying to graduate programs, and developing CVs and personal statements. I also supported campus outreach events connecting prospective and high-school students with research opportunities.</p>
-                </article>
-                <article>
-                  <h3>Chemistry and Biochemistry Journal Club</h3>
-                  <p className="item-meta">Co-founder and Coordinator · CSUN</p>
-                  <p>I co-founded a monthly, student-led forum for reading and discussing current chemical literature. The club gives undergraduate and graduate students a low-pressure setting to practice presenting papers, asking technical questions, and exchanging feedback.</p>
-                </article>
-              </div>
-
-              <div className="student-reflections">
-                <p className="subsection-label">From anonymous student evaluations</p>
-                <div className="reflection-grid">
-                  <blockquote>
-                    <p>Explains concepts in an efficient but also easy to understand way.</p>
-                    <cite>General Chemistry II Lab student</cite>
-                  </blockquote>
-                  <blockquote>
-                    <p>Sammie was very kind and patient and really easy to talk to throughout the semester.</p>
-                    <cite>General Chemistry II Lab student</cite>
-                  </blockquote>
-                  <blockquote>
-                    <p>She does want us to figure out things before we go to her, which I appreciate.</p>
-                    <cite>Organic Chemistry I Lab student</cite>
-                  </blockquote>
-                </div>
-              </div>
-
-              <figure className="journal-club-feature">
-                <div className="journal-club-gallery">
-                  <img src="/journal-club-discussion.jpeg" alt="Members of the CSUN Chemistry and Biochemistry Journal Club after a meeting" />
-                  <img src="/journal-club-materials-chemistry.jpeg" alt="CSUN Chemistry and Biochemistry Journal Club members at a materials chemistry discussion" />
-                </div>
-                <figcaption>Student-led Chemistry and Biochemistry Journal Club meetings at CSUN.</figcaption>
+          </div>
+          <div className="photo-strip">
+            {photos.map((ph) => (
+              <figure key={ph.src} className="polaroid" style={{ "--tilt": `${ph.tilt}deg` }}>
+                <img src={ph.src} alt={ph.alt} loading="lazy" />
+                <figcaption>{ph.caption}</figcaption>
               </figure>
+            ))}
+          </div>
+        </section>
 
-              <div className="engagement-feature">
-                <p className="subsection-label">Mentoring and outreach in practice</p>
-                <div className="engagement-gallery">
-                  <figure>
-                    <img src="/research-showcase-presentation.jpg" alt="Samantha Ellis presenting deep-Earth chemistry at a CSUN student research showcase" />
-                    <figcaption>
-                      <strong>Student research showcase</strong>
-                      <span>Presenting high-pressure and deep-Earth chemistry at a showcase hosted by CSUN's Microbiology Student Association and SACNAS.</span>
-                    </figcaption>
-                  </figure>
-                  <figure>
-                    <img src="/cv-workshop.jpg" alt="Samantha Ellis leading a curriculum vitae workshop for CSUN students" />
-                    <figcaption>
-                      <strong>CV workshop</strong>
-                      <span>Leading a workshop for the Chemistry and Biochemistry Club through CSUN's Office of Undergraduate Research.</span>
-                    </figcaption>
-                  </figure>
-                  <figure>
-                    <img src="/chemistry-club-pi-day.jpg" alt="Samantha Ellis with members of the CSUN Chemistry and Biochemistry Club at a Pi Day event" />
-                    <figcaption>
-                      <strong>Departmental service</strong>
-                      <span>Helping run the Chemistry and Biochemistry Club booth at the CSUN Women in Science Pi Day event.</span>
-                    </figcaption>
-                  </figure>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section id="news" className="page-section coverage-section">
-            <h2>News</h2>
-            <div className="feature-links" aria-label="Featured articles">
-              <a className="featured-news" href="https://newsroom.csun.edu/2026/05/14/grad-student-and-undergrad-win-national-science-foundation-research-fellowship/" target="_blank" rel="noreferrer">
-                <img src="/csun-newsroom-grfp.jpg" alt="Samantha Ellis standing beside her computational materials research poster" />
-                <div>
-                  <span>Featured · CSUN Newsroom</span>
-                  <strong>Graduate researchers receive National Science Foundation fellowships</strong>
-                </div>
+        <section id="news" className="wrap section news">
+          <figure className="polaroid big" style={{ "--tilt": "-3deg" }}>
+            <img src="/samantha-ellis.jpg" alt="Samantha Ellis holding her dog" />
+            <figcaption>me + my favorite lab buddy</figcaption>
+          </figure>
+          <div className="news-list">
+            <h2>In the news</h2>
+            {news.map((n) => (
+              <a key={n.href} className="news-card wiggle" href={n.href} target="_blank" rel="noreferrer" style={{ background: n.color, "--tilt": "0deg" }}>
+                <img src={n.img} alt={n.alt} loading="lazy" />
+                <span className="news-text">
+                  <span className="mono small muted">{n.isNew && <span className="new">NEW!</span>}{n.meta}</span>
+                  <span className="news-title">{n.title}</span>
+                </span>
               </a>
-              <a className="newsletter-profile news-story" href="https://newsroom.csun.edu/2025/11/18/study-by-csun-prof-upends-understanding-of-what-happens-to-iron-at-earths-core/" target="_blank" rel="noreferrer">
-                <img src="/csun-newsroom-iron-core.jpg" alt="Illustration of Earth and its core accompanying a CSUN Newsroom article about iron under pressure" />
-                <span>CSUN Newsroom · November 2025</span>
-                <strong>Study by CSUN Prof Upends Understanding of What Happens to Iron at Earth’s Core</strong>
-              </a>
-              <a className="newsletter-profile" href="https://t.e2ma.net/webview/it10xk/de0c2a38558e5a239902e187dd02712e" target="_blank" rel="noreferrer">
-                <img src="/our-admitted-matadors-day.jpeg" alt="Office of Undergraduate Research newsletter preview featuring Admitted Matadors Day" />
-                <span>Office of Undergraduate Research newsletter</span>
-                <strong>Graduate peer mentoring and undergraduate research outreach</strong>
-              </a>
-            </div>
-          </section>
-
-        </div>
+            ))}
+          </div>
+        </section>
       </main>
 
-      <footer>
-        <div className="container footer-inner">
-          <p>© 2026 Samantha Ellis</p>
+      <footer className="footer">
+        <div className="footer-left">
+          <svg width="80" height="80" viewBox="-45 -45 90 90" aria-hidden="true">
+            <circle r="32" fill="#FFD66B" stroke="#FFF7EC" strokeWidth="3" />
+            <path d="M-15,-6 q4,-6 8,0 M7,-6 q4,-6 8,0" fill="none" stroke="#2D2440" strokeWidth="3" strokeLinecap="round" />
+            <path d="M-10,8 Q0,18 10,8" fill="#2D2440" stroke="#2D2440" strokeWidth="3" strokeLinejoin="round" />
+            <ellipse cx="-19" cy="6" rx="5" ry="3" fill="#E0457B" opacity="0.5" />
+            <ellipse cx="19" cy="6" rx="5" ry="3" fill="#E0457B" opacity="0.5" />
+          </svg>
           <div>
-            <a href="mailto:samantha.scott.309@my.csun.edu">Email</a>
-            <a href="https://www.linkedin.com/in/samantha-l-ellis/" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a href="https://scholar.google.com/citations?user=3hrvXUYAAAAJ&hl=en" target="_blank" rel="noreferrer">Google Scholar</a>
+            <p className="footer-title">Let’s bond!</p>
+            <p className="footer-sub">Collaborations, questions, or just nerding out about electrons. My inbox is open.</p>
           </div>
         </div>
+        <div className="footer-links">
+          <a className="fbtn fbtn-pink" href={EMAIL}>Email me</a>
+          <a className="fbtn" href={LINKEDIN} target="_blank" rel="noreferrer">LinkedIn</a>
+          <a className="fbtn" href={SCHOLAR} target="_blank" rel="noreferrer">Scholar</a>
+          <a className="fbtn" href={CV} target="_blank" rel="noreferrer">CV</a>
+        </div>
+        <p className="copyright">© 2026 Samantha Ellis</p>
       </footer>
     </>
   );
