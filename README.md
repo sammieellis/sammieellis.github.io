@@ -1,4 +1,4 @@
-# Samantha Ellis â Computational Materials Chemistry
+# Samantha Ellis — Computational Materials Chemistry
 
 This repository contains the source for Samantha Ellis's research portfolio. GitHub Pages builds and publishes it automatically after changes are pushed to `main`.
 
