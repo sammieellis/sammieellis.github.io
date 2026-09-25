@@ -87,6 +87,8 @@ const photos = [
   { src: "/journal-club-discussion.jpeg", alt: "Members of the CSUN Chemistry and Biochemistry Journal Club after a meeting", caption: "Journal Club meetup", tilt: -1 },
   { src: "/research-showcase-presentation.jpg", alt: "Samantha Ellis presenting deep-Earth chemistry at a CSUN student research showcase", caption: "Deep-Earth chemistry at a student research showcase (MSA × SACNAS)", tilt: 0.75 },
   { src: "/cv-workshop.jpg", alt: "Samantha Ellis leading a curriculum vitae workshop for CSUN students", caption: "Leading a CV workshop for the Chem & Biochem Club", tilt: -0.5 },
+  { src: "/chemistry-club-pi-day.jpg", alt: "Samantha Ellis with members of the CSUN Chemistry and Biochemistry Club at a Pi Day event", caption: "Women in Science Pi Day booth", tilt: 1 },
+  { src: "/journal-club-materials-chemistry.jpeg", alt: "CSUN Chemistry and Biochemistry Journal Club members at a materials chemistry discussion", caption: "Materials chemistry night at Journal Club", tilt: -0.75 },
 ];
 
 const news = [
