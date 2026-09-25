@@ -7,7 +7,7 @@ const facts = [
   "Cesium’s 5p electrons belong to its core and normally stay out of chemistry. Under pressure they can form chemical bonds, and my thesis looks for a compound where experiments can observe this.",
   "As molecular hydrogen approaches metallization under pressure, it shows electride-like behavior, with electrons moving into interstitial sites between H₂ molecules.",
   "Our ELFNet model predicts electron localization functions about 350× faster than DFT, helping identify metal frameworks that could host superhydrides.",
-  "Fluorine etches MoS₂ and WS₂ by pulling sulfur off the surface. A machine-learned interatomic potential lets me simulate the process out to nanoseconds.",
+  "Quantum-accurate simulations usually reach only picoseconds on small cells. I fine-tune a machine-learned potential on them so it can run for nanoseconds on much larger systems.",
 ];
 
 const mouths = [
