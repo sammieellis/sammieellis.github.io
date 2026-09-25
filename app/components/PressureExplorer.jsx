@@ -124,10 +124,6 @@ function AtomRow({ lvl, sq }) {
 // FeI Bader charge on Fe (HSE), PNAS 2025 SI Fig. 8c: its sign flips near 150 GPa
 const Q_P = [0, 50, 100, 150, 200, 250, 300];
 const Q_FE = [0.31, 0.15, 0.05, -0.02, -0.065, -0.1, -0.22];
-// Fe–I band centers in eV, SI Fig. 9: compression pushes I 5p up past Fe 3d
-const E_P = [0, 50, 100, 200, 300];
-const E_FE3D = [0, -1.6, -1.9, -1.9, -2.7];
-const E_I5P = [-3.7, -2.8, -3.0, -0.3, -0.8];
 
 function interp(xs, ys, x) {
   const q = Math.min(xs[xs.length - 1], Math.max(xs[0], x));
@@ -164,147 +160,89 @@ function useCyclingPressure() {
   return p;
 }
 
+function Cloud({ id, color, rx, ry }) {
+  return (
+    <>
+      <defs>
+        <radialGradient id={id}>
+          <stop offset="0%" stopColor={color} stopOpacity="0.9" />
+          <stop offset="60%" stopColor={color} stopOpacity="0.45" />
+          <stop offset="100%" stopColor={color} stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <ellipse rx={rx} ry={ry} fill={`url(#${id})`} />
+    </>
+  );
+}
+
 function FeIScene() {
+  // iron and iodine squeezed together; the electron flow reverses near 150 GPa
   const p = useCyclingPressure();
   const qFe = interp(Q_P, Q_FE, p);
   const feGives = qFe > 0;
-  // Fe on the cube corners, I in the body center (CsCl-type FeI at 300 GPa); the cell shrinks as pressure rises
-  const s = 140 * (1 - 0.14 * (p / 300));
-  const d = s * 0.4;
-  const cx = 175, cy = 165;
-  const fx = cx - d / 2, fy = cy + d / 2;
-  const front = [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([i, j]) => [fx + (i * s) / 2, fy + (j * s) / 2]);
-  const back = front.map(([x, y]) => [x + d, y - d]);
-  const edge = (pts) => pts.map(([x, y], k) => `${k ? "L" : "M"}${x},${y}`).join(" ") + " Z";
-  const flow = Math.min(1, Math.abs(qFe) / 0.15);
-  const happy = faces[0], worried = faces[1];
-  // energy levels
-  const EY = (e) => 75 - e * 44;
-  const e3d = interp(E_P, E_FE3D, p);
-  const e5p = interp(E_P, E_I5P, p);
+  const gap = 200 - 50 * (p / 300);
+  const xFe = 300 - gap / 2, xI = 300 + gap / 2;
+  const a = feGives ? xFe + 50 : xI - 56;
+  const b = feGives ? xI - 56 : xFe + 50;
+  const flow = Math.min(1, Math.abs(qFe) / 0.12);
   return (
-    <svg className="atom-row" viewBox="0 0 600 300" role="img" aria-label="FeI under a compression cycle from 0 to 300 GPa: electrons flow from Fe to I at low pressure and reverse direction near 150 GPa">
-      <text x="14" y="24" className="svg-label">FeI · {Math.round(p)} GPa</text>
-      <text x="14" y="42" className="svg-mono">{feGives ? "Fe gives e⁻ (reductant)" : "Fe takes e⁻ (oxidant)"}</text>
-
-      <path d={edge(back)} fill="none" stroke={INK} strokeWidth="1.2" opacity="0.4" />
-      {front.map(([x, y], k) => <line key={k} x1={x} y1={y} x2={back[k][0]} y2={back[k][1]} stroke={INK} strokeWidth="1.2" opacity="0.4" />)}
-      {back.map(([x, y], k) => <circle key={k} cx={x} cy={y} r="13" fill="#FFA98F" stroke={INK} strokeWidth="1.8" opacity="0.7" />)}
-      <circle cx={cx} cy={cy} r="30" fill="#C5A8FF" stroke={INK} strokeWidth="2.2" />
+    <svg className="atom-row" viewBox="95 0 410 245" role="img" aria-label="Iron and iodine being squeezed: electrons flow from iron to iodine at low pressure and from iodine to iron above about 150 GPa">
+      <text x="300" y="22" textAnchor="middle" className="svg-mono">{Math.round(p)} GPa</text>
+      <g transform={`translate(${xFe},125)`}><Cloud id="cl-fe" color="#FFA98F" rx="86" ry="82" /></g>
+      <g transform={`translate(${xI},125)`}><Cloud id="cl-i" color="#C5A8FF" rx="94" ry="90" /></g>
       <g opacity={flow}>
-        {front.map(([x, y], k) => {
-          const d0 = feGives ? `M${x},${y} L${cx},${cy}` : `M${cx},${cy} L${x},${y}`;
-          return [0, 1].map((j) => (
-            <circle key={`${k}-${j}`} className="e-flow" r="4.5" fill="#F6D743" stroke={INK} strokeWidth="1.3"
-              style={{ offsetPath: `path("${d0}")`, animationDelay: `${k * 0.35 + j * 0.9}s` }} />
-          ));
-        })}
+        {[0, 1, 2].map((k) => (
+          <circle key={k} className="e-flow" r="6" fill="#F6D743" stroke={INK} strokeWidth="1.5"
+            style={{ offsetPath: `path("M${a},${125 + (k - 1) * 16} L${b},${125 + (k - 1) * 16}")`, animationDelay: `${k * 0.6}s` }} />
+        ))}
       </g>
-      <path d={edge(front)} fill="none" stroke={INK} strokeWidth="1.6" />
-      {front.map(([x, y], k) => (
-        <g key={k} transform={`translate(${x},${y})`}>
-          <circle r="20" fill="#FFA98F" stroke={INK} strokeWidth="2.2" />
-          <Face face={feGives ? worried : happy} scale={0.5} />
-        </g>
-      ))}
-      <g transform={`translate(${cx},${cy})`}><Face face={feGives ? happy : worried} scale={0.8} /></g>
-      <text x={front[3][0] - 26} y={front[3][1] + 5} textAnchor="end" className="svg-label">Fe {feGives ? "δ+" : "δ−"}</text>
-      <text x={cx} y={cy + 50} textAnchor="middle" className="svg-label">I {feGives ? "δ−" : "δ+"}</text>
-
-      <g>
-        <text x="390" y="40" className="svg-mono">energy levels (band centers)</text>
-        <line x1="400" y1={EY(0.5)} x2="400" y2={EY(-4.3)} stroke={INK} strokeWidth="1.4" />
-        <path d={`M395,${EY(0.5) + 8} L400,${EY(0.5)} L405,${EY(0.5) + 8}`} fill="none" stroke={INK} strokeWidth="1.4" />
-        <text x="388" y={EY(0.5) + 12} textAnchor="end" className="svg-mono">E</text>
-        <line x1="412" y1={EY(e3d)} x2="482" y2={EY(e3d)} stroke="#D8452B" strokeWidth="5" strokeLinecap="round" />
-        <line x1="412" y1={EY(e5p)} x2="482" y2={EY(e5p)} stroke="#7B4DFF" strokeWidth="5" strokeLinecap="round" />
-        <text x="490" y={EY(e3d) + 5} className="svg-label">Fe 3d</text>
-        <text x="490" y={EY(e5p) + 5} className="svg-label">I 5p</text>
-        <text x="412" y="282" className="svg-mono">{feGives ? "I 5p lies below Fe 3d" : "I 5p pushed above Fe 3d"}</text>
+      <g transform={`translate(${xFe},125)`}>
+        <circle r="50" fill="#FFA98F" stroke={INK} strokeWidth="2.2" />
+        <Face face={feGives ? faces[1] : faces[0]} />
+        <text y="84" textAnchor="middle" className="atom-sym">Fe</text>
+        <text y="104" textAnchor="middle" className="atom-note">{feGives ? "gives e⁻" : "takes e⁻"}</text>
       </g>
-      <text x="14" y="296" className="svg-mono">FeI (CsCl-type at 300 GPa) · data: PNAS 2025 SI Figs. 8–9</text>
+      <g transform={`translate(${xI},125)`}>
+        <circle r="56" fill="#C5A8FF" stroke={INK} strokeWidth="2.2" />
+        <Face face={feGives ? faces[0] : faces[1]} />
+        <text y="90" textAnchor="middle" className="atom-sym">I</text>
+        <text y="110" textAnchor="middle" className="atom-note">{feGives ? "takes e⁻" : "gives e⁻"}</text>
+      </g>
     </svg>
   );
 }
 
-// Interstitial channels between H₂ molecules, drawn after the wave functions in JPCL 2026 Fig. 3
-const CHANNEL_X = [150, 300, 450];
-const channel = (x) => `M${x},18 C${x + 16},70 ${x - 16},110 ${x},150 S${x + 16},230 ${x},282`;
-// [x, y, angle, nearest channel x] of each H₂ in the layer: perpendicular, tilted, and parallel orientations
-const H2_SITES = [
-  [75, 80, 90, 150], [75, 215, 30, 150], [225, 75, -35, 300], [225, 210, 0, 150],
-  [375, 85, 0, 450], [375, 220, 60, 300], [525, 78, 40, 450], [525, 212, 90, 450],
-];
-// electron leaves the H–H bond (occupied σ states) and drops into the interstitial channel
-const donate = ([x, y, , c]) => `M${x},${y} Q${(x + c) / 2},${y - 34} ${c},${y - 6}`;
+// three H₂ molecules; electrons leave the H–H bonds and pool in the gaps between them
+const H2_X = [175, 300, 425];
+const H2_TILT = [-18, 14, -10];
+const GAPS = [112, 237, 362, 487];
 
-function HydrogenScene({ gpa, face }) {
-  const w = 30 + Math.max(0, Math.min(1, (gpa - 400) / 100)) * 14;
+function HydrogenScene({ face }) {
   return (
-    <svg className="atom-row" viewBox="0 0 600 300" role="img" aria-label="Electrons leave H₂ molecules and collect in interstitial channels between them">
-      <defs>
-        <filter id="iso-soft" x="-50%" y="-10%" width="200%" height="120%">
-          <feGaussianBlur stdDeviation="3.5" />
-        </filter>
-      </defs>
-      <rect x="10" y="18" width="580" height="264" fill="none" stroke={INK} strokeWidth="1.2" opacity="0.45" />
-      {CHANNEL_X.map((x, k) => (
-        <g key={x} className="breathe" style={{ animationDelay: `${k * 0.6}s` }}>
-          <path d={channel(x)} fill="none" stroke={INK} strokeWidth={w + 3} opacity="0.25" />
-          <path d={channel(x)} fill="none" stroke="#F6D743" strokeWidth={w} />
-          <g filter="url(#iso-soft)">
-            <path d={channel(x)} fill="none" stroke="#7FD9A0" strokeWidth={w * 0.95} opacity="0.55" />
-            <path d={channel(x)} fill="none" stroke="#F6D743" strokeWidth={w * 0.6} />
-            <path d={channel(x)} fill="none" stroke="#FF6B4A" strokeWidth={w * 0.2} opacity="0.6" />
-          </g>
-          {[18, 282].map((y) => (
-            <g key={y}>
-              <ellipse cx={x} cy={y} rx={w / 2} ry="6" fill="#F6D743" stroke={INK} strokeWidth="1.2" />
-              <ellipse cx={x} cy={y} rx={w / 5} ry="3" fill="#FF6B4A" />
-            </g>
-          ))}
+    <svg className="atom-row" viewBox="75 45 450 190" role="img" aria-label="H₂ molecules giving electrons to the interstitial gaps between them">
+      {GAPS.map((x, k) => (
+        <g key={x} transform={`translate(${x},120)`} className="breathe" style={{ animationDelay: `${k * 0.7}s` }}>
+          <Cloud id={`gap-${k}`} color="#F6D743" rx="32" ry="58" />
         </g>
       ))}
-      {CHANNEL_X.map((x, k) => (
-        [0, 1, 2].map((j) => (
-          <circle
-            key={`${x}-${j}`}
-            className={k % 2 ? "e-hop e-rev" : "e-hop"}
-            r="5"
-            fill="#FFF7D6"
-            stroke={INK}
-            strokeWidth="1.4"
-            style={{ offsetPath: `path("${channel(x)}")`, offsetDistance: `${15 + j * 33}%`, animationDelay: `${-(j * 2.4 + k)}s` }}
-          />
+      {H2_X.map((x, i) =>
+        [-1, 1].map((side, j) => (
+          <circle key={`${x}${side}`} className="e-donate" r="5.5" fill="#F6D743" stroke={INK} strokeWidth="1.4"
+            style={{ offsetPath: `path("M${x},120 Q${x + side * 36},${96 + j * 48} ${x + side * 63},120")`, animationDelay: `${i * 1.3 + j * 2}s` }} />
         ))
-      ))}
-      {H2_SITES.map((site, k) => (
-        <path key={`g${k}`} d={donate(site)} fill="none" stroke={INK} strokeWidth="1.3" strokeDasharray="2 4" opacity="0.4" />
-      ))}
-      {H2_SITES.map((site, k) => (
-        <circle
-          key={`d${k}`}
-          className="e-donate"
-          r="5.5"
-          fill="#FFF7D6"
-          stroke={INK}
-          strokeWidth="1.3"
-          style={{ offsetPath: `path("${donate(site)}")`, animationDelay: `${(k * 0.83) % 4}s` }}
-        />
-      ))}
-      {H2_SITES.map(([x, y, rot]) => (
-        <g key={`${x}-${y}`} transform={`translate(${x},${y}) rotate(${rot})`}>
-          <line x1="-19" y1="0" x2="19" y2="0" stroke={INK} strokeWidth="10" strokeLinecap="round" />
-          <line x1="-19" y1="0" x2="19" y2="0" stroke="#F4C9CF" strokeWidth="6.5" strokeLinecap="round" />
-          {[-1, 1].map((side) => (
-            <g key={side} transform={`translate(${side * 21},0)`}>
-              <circle r="15" fill="#F4C9CF" stroke={INK} strokeWidth="2.2" />
-              <g transform={`rotate(${-rot})`}><Face face={face} scale={0.5} /></g>
+      )}
+      {H2_X.map((x, i) => (
+        <g key={x} transform={`translate(${x},120) rotate(${H2_TILT[i]})`}>
+          <line x1="0" y1="-12" x2="0" y2="12" stroke={INK} strokeWidth="4" strokeLinecap="round" />
+          {[-26, 26].map((y) => (
+            <g key={y} transform={`translate(0,${y})`}>
+              <circle r="22" fill="#F4C9CF" stroke={INK} strokeWidth="2.4" />
+              <g transform={`rotate(${-H2_TILT[i]})`}><Face face={face} scale={0.75} /></g>
             </g>
           ))}
         </g>
       ))}
-      <text x="20" y="298" className="svg-mono">H₂ layer · electrons leave the H–H bonds for the interstitial channels (yellow)</text>
+      {H2_X.map((x) => <text key={x} x={x} y="222" textAnchor="middle" className="atom-sym">H₂</text>)}
     </svg>
   );
 }
@@ -386,7 +324,7 @@ export default function PressureExplorer({ initialLevel = 0 }) {
         <div className="stage" style={{ background: L.stage }}>
           {lvl === 0 ? <TmdScene />
             : lvl === 2 ? <FeIScene />
-            : lvl === 3 ? <HydrogenScene gpa={gpa} face={faces[3]} />
+            : lvl === 3 ? <HydrogenScene face={faces[3]} />
             : <AtomRow lvl={lvl} sq={sq} />}
           <span className="pill mono">≈ {gpa} GPa · {L.mood}</span>
         </div>
