@@ -3,11 +3,11 @@
 import { useState } from "react";
 
 const facts = [
-  "Squeeze iron to Earth’s-core pressures and it flips from electron donor to electron acceptor, pulling electrons away from elements like silicon and sulfur.",
-  "Cesium’s 5p electrons are “core” electrons, normally off-limits for chemistry. Under pressure they can form real chemical bonds, and I’m hunting for a compound where experiments can catch them doing it.",
-  "Squeeze hydrogen hard enough and, before it turns metallic, its molecules start acting like an electride, with electrons pooling in the gaps between H₂ molecules.",
-  "Our ELFNet model predicts electron localization maps about 350× faster than DFT, to help find metal frameworks that could hold superhydrides.",
-  "Fluorine can etch MoS₂ and WS₂ one atomic layer at a time. A machine-learned potential lets me simulate it out to nanoseconds.",
+  "At Earth’s-core pressures, iron switches from electron donor to electron acceptor, drawing charge from elements such as silicon and sulfur.",
+  "Cesium’s 5p electrons belong to its core and normally stay out of chemistry. Under pressure they can form chemical bonds, and my thesis looks for a compound where experiments can observe this.",
+  "As molecular hydrogen approaches metallization under pressure, it shows electride-like behavior, with electrons moving into interstitial sites between H₂ molecules.",
+  "Our ELFNet model predicts electron localization functions about 350× faster than DFT, helping identify metal frameworks that could host superhydrides.",
+  "Fluorine etches MoS₂ and WS₂ one atomic layer at a time. A machine-learned interatomic potential lets me simulate the process out to nanoseconds.",
 ];
 
 const mouths = [

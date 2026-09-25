@@ -74,7 +74,7 @@ const roles = [
   { badge: "Pm", color: "#9DB0FF", title: "Graduate Peer Mentor", meta: "Office of Undergraduate Research · CSUN",
     text: "I led workshops and individual advising for students joining research groups, preparing conference materials, applying to graduate programs, and developing CVs and personal statements. I also supported campus outreach events connecting prospective and high-school students with research opportunities." },
   { badge: "Jc", color: "#F6D743", title: "Journal Club co-founder", meta: "Chemistry & Biochemistry Journal Club · CSUN",
-    text: "A monthly, student-led forum for reading current chemical literature: a low-pressure place to practice presenting papers, ask technical questions, and trade feedback." },
+    text: "A monthly, student-led forum for reading current chemical literature, where students can practice presenting papers, ask technical questions, and exchange feedback in a low-pressure setting." },
 ];
 
 const quotes = [
@@ -165,7 +165,7 @@ export default function Page() {
               <mark className="hl-mint">machine learning</mark> to accelerate the search for new superhydrides.
             </p>
             <p className="sub">
-              Currently: M.S. research with Prof. Maosheng Miao at CSUN, and a Research Student Internship at Oak Ridge National Laboratory with Eva Zarkadoula and Jingsong Huang.
+              I’m completing my M.S. with Prof. Maosheng Miao at CSUN and working as a Research Student Intern at Oak Ridge National Laboratory with Eva Zarkadoula and Jingsong Huang.
             </p>
             <div className="buttons">
               <a className="btn btn-pink" href={EMAIL}>Say hi</a>
