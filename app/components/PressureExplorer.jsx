@@ -79,7 +79,7 @@ function Blob({ x, id }) {
   );
 }
 
-function Atom({ a, i, n, lvl, x, sq, face }) {
+function Atom({ a, i, n, lvl, x, sq, face, S }) {
   const [sym, fill, cs, blob, note] = a;
   const id = `L${lvl}A${i}`;
   const isMol = sym === "H₂";
@@ -90,6 +90,7 @@ function Atom({ a, i, n, lvl, x, sq, face }) {
   const flow = lvl === 2 && sym === "Si";
   return (
     <g transform={`translate(${x},100)`}>
+      <g transform={`scale(${S})`}>
       <defs>
         <radialGradient id={`cl-${id}`}>
           <stop offset="0%" stopColor={fill} stopOpacity="0.95" />
@@ -142,13 +143,14 @@ function Atom({ a, i, n, lvl, x, sq, face }) {
         </g>
       ) : (
         <g>
-          <ellipse rx={sq[0] * 0.72} ry={sq[1] * 0.72} fill={fill} stroke={INK} strokeWidth="2.5" />
+          <ellipse rx={sq[0] * 0.78} ry={(sq[0] + (sq[1] - sq[0]) * 0.45) * 0.78} fill={fill} stroke={INK} strokeWidth="2.2" />
           <Face face={face} />
         </g>
       )}
       {lvl === 3 && <path d="M26,-34 q6,10 0,13 q-6,-3 0,-13" fill="#7FDDEB" stroke={INK} strokeWidth="1.5" />}
-      <text y="100" textAnchor="middle" className="atom-sym">{sym}</text>
-      <text y="120" textAnchor="middle" className="atom-note">{note}</text>
+      </g>
+      <text y={78 * S + 26} textAnchor="middle" className="atom-sym">{sym}</text>
+      <text y={78 * S + 46} textAnchor="middle" className="atom-note">{note}</text>
     </g>
   );
 }
@@ -157,11 +159,15 @@ function AtomRow({ lvl, sq }) {
   const L = LEVELS[lvl];
   const face = faces[lvl];
   const n = L.atoms.length;
-  const spacing = 150 + 2 * sq[2];
+  const S = n === 2 ? 1.5 : 1.3;
+  const spacing = (150 + 2 * sq[2]) * S * (n === 2 ? 1.15 : 1);
+  const W = (n - 1) * spacing + 190 * S;
+  const top = 100 - 80 * S;
+  const H = 80 * S + 78 * S + 56;
   return (
-    <svg className="atom-row" viewBox="0 0 600 240" role="img" aria-label={`${L.name}: ${L.mood}`}>
+    <svg className="atom-row" viewBox={`${300 - W / 2} ${top} ${W} ${H}`} role="img" aria-label={`${L.name}: ${L.mood}`}>
       {L.atoms.map((a, i) => (
-        <Atom key={`${lvl}-${i}`} a={a} i={i} n={n} lvl={lvl} sq={sq} face={face} x={300 + (i - (n - 1) / 2) * spacing} />
+        <Atom key={`${lvl}-${i}`} a={a} i={i} n={n} lvl={lvl} sq={sq} face={face} S={S} x={300 + (i - (n - 1) / 2) * spacing} />
       ))}
     </svg>
   );
