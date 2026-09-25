@@ -1,8 +1,22 @@
 import "./globals.css";
 
+const title = "Samantha Ellis | Computational Materials Chemistry";
+const description = "Research portfolio of Samantha Ellis, NSF Graduate Research Fellow and computational materials chemist.";
+
 export const metadata = {
-  title: "Samantha Ellis | Computational Materials Chemistry",
-  description: "Research portfolio of Samantha Ellis, NSF Graduate Research Fellow and computational materials chemist.",
+  metadataBase: new URL("https://samanthaellis.org"),
+  title,
+  description,
+  // link previews in messages and social apps
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Samantha Ellis",
+    title,
+    description,
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Top of Samantha Ellis's research website" }],
+  },
+  twitter: { card: "summary_large_image", title, description, images: ["/og-image.png"] },
 };
 
 export default function RootLayout({ children }) {
