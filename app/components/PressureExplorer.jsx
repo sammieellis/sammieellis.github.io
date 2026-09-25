@@ -47,6 +47,8 @@ const LEVELS = [
   },
 ];
 
+const STOP_GPA = [0, 221, 350, 500];
+
 // [rx, ry, margin, spin seconds]
 const SQUISH = [[40, 40, 26, 6], [36, 43, 12, 3.5], [32, 46, 2, 2], [28, 49, -8, 1.2]];
 
@@ -151,9 +153,8 @@ function Atom({ a, i, n, lvl, x, sq, face }) {
   );
 }
 
-function AtomRow({ lvl }) {
+function AtomRow({ lvl, sq }) {
   const L = LEVELS[lvl];
-  const sq = SQUISH[lvl];
   const face = faces[lvl];
   const n = L.atoms.length;
   const spacing = 150 + 2 * sq[2];
@@ -228,14 +229,21 @@ function TmdScene() {
 }
 
 export default function PressureExplorer({ initialLevel = 0 }) {
-  const [lvl, setLvl] = useState(initialLevel);
+  // u runs continuously from 0 (lab bench) to 3 (hydrogen); each whole number is one project
+  const [u, setU] = useState(initialLevel);
+  const lvl = Math.min(3, Math.round(u));
   const L = LEVELS[lvl];
+  const i0 = Math.min(2, Math.floor(u));
+  const f = u - i0;
+  // sizes and spacing squeeze smoothly; spin speed changes per project so the animation never jumps mid-drag
+  const sq = SQUISH[i0].slice(0, 3).map((v, k) => v + (SQUISH[i0 + 1][k] - v) * f).concat(SQUISH[lvl][3]);
+  const gpa = Math.round(STOP_GPA[i0] + (STOP_GPA[i0 + 1] - STOP_GPA[i0]) * f);
   return (
     <div className="explorer">
       <div className="explorer-grid">
         <div className="stage" style={{ background: L.stage }}>
-          {lvl === 0 ? <TmdScene /> : <AtomRow lvl={lvl} />}
-          <span className="pill mono">{L.gpa} · {L.mood}</span>
+          {lvl === 0 ? <TmdScene /> : <AtomRow lvl={lvl} sq={sq} />}
+          <span className="pill mono">≈ {gpa} GPa · {L.mood}</span>
         </div>
         <div className="project-card" style={{ background: L.card }}>
           <span className="pill mono small">{L.where}</span>
@@ -248,11 +256,11 @@ export default function PressureExplorer({ initialLevel = 0 }) {
       </div>
       <div className="pressure-controls">
         <label htmlFor="pressure">Pressure</label>
-        <input id="pressure" type="range" min="0" max="3" step="1" value={lvl} onChange={(e) => setLvl(Number(e.target.value))} />
+        <input id="pressure" type="range" min="0" max="3" step="0.01" value={u} aria-valuetext={`about ${gpa} GPa: ${L.name}`} onChange={(e) => setU(Number(e.target.value))} />
         <div className="scale-labels" aria-hidden="true"><span>0 GPa · lab bench</span><span>500 GPa · hydrogen</span></div>
         <div className="stops">
           {LEVELS.map((x, i) => (
-            <button key={x.name} type="button" className={i === lvl ? "stop active" : "stop"} aria-pressed={i === lvl} onClick={() => setLvl(i)}>
+            <button key={x.name} type="button" className={i === lvl ? "stop active" : "stop"} aria-pressed={i === lvl} onClick={() => setU(i)}>
               <span>{x.name}</span>
               <span className="mono">{x.gpa}</span>
             </button>
