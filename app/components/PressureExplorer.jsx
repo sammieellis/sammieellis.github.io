@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const INK = "#1F1B4D";
 
@@ -11,7 +11,7 @@ const faces = [
   { eyes: "M-12,-8 L-6,-4 L-12,0 M12,-8 L6,-4 L12,0", eyeFill: "none", mouth: "M-8,9 q2,-3 4,0 q2,3 4,0 q2,-3 4,0 q2,3 4,0" },
 ];
 
-// [symbol, color, cloudScale, note]
+// [symbol, color, cloudScale, interstitialBlob, note]
 const LEVELS = [
   {
     name: "Lab bench", gpa: "≈ 0 GPa", mood: "F etches surface S, which leaves as SF₃", stage: "#E0F5E7", card: "#DDF5E4",
@@ -23,15 +23,15 @@ const LEVELS = [
   },
   {
     name: "Beyond +1", gpa: "~221 GPa", mood: "Cs 5p electrons take part in bonding", stage: "#E6EBFF", card: "#E3E8FF",
-    atoms: [["O", "#FF9A80", 0.95, "Cs–O bond"], ["Cs", "#7FDDEB", 1.1, "5p active"], ["O", "#FF9A80", 0.95, "Cs–O bond"]],
+    atoms: [["O", "#FF9A80", 0.95, 0, "Cs–O bond"], ["Cs", "#7FDDEB", 1.1, 0, "5p active"], ["O", "#FF9A80", 0.95, 0, "Cs–O bond"]],
     where: "M.S. thesis · CSUN",
     title: "Core electrons that bond",
     body: "Cesium is normally limited to a +1 oxidation state, with its 5p electrons held in the core. Theory has shown that under pressure these 5p electrons can take part in bonding, and in cesium polyoxides the O–O bonds give way to covalent Cs–O bonds. My thesis searches for a candidate system in which this core reactivity can be realized experimentally. I predict structures with CALYPSO, construct ternary convex hulls, and simulate Cs XANES spectra to identify signatures that experimentalists can measure.",
     tags: ["CALYPSO", "ternary convex hulls", "FEFF XANES", "Bader charge"],
   },
   {
-    name: "Earth’s core", gpa: "up to 350 GPa", mood: "Fe–I charge transfer reverses near 150 GPa", stage: "#FFE1D6", card: "#FFE1D8",
-    atoms: null,
+    name: "Earth’s core", gpa: "up to 350 GPa", mood: "FeSi (1:1), charge transfer from Si to Fe", stage: "#FFE1D6", card: "#FFE1D8",
+    atoms: [["Si", "#9DB0FF", 0.8, 0, "donates e⁻ →"], ["Fe", "#FFA98F", 1.3, 0, "accepts e⁻"]],
     where: "PNAS · 2025",
     title: "Iron switches sides",
     body: "Under ambient conditions, iron acts as an electron donor. At core pressures of up to ~350 GPa, its compact 3d states drop in energy relative to the np states of p-block elements, and iron becomes an electron acceptor. I built HSE convex hulls and Bader charge analyses across Fe–p-block systems. The elements that bond most strongly to iron at core conditions turn out to be the least depleted from the mantle, which points to volatile loss during Earth’s accretion rather than sequestration in the core.",
@@ -39,7 +39,7 @@ const LEVELS = [
   },
   {
     name: "Hydrogen extreme", gpa: "up to 500 GPa", mood: "electrons localize at interstitial sites between H₂", stage: "#FFF1CF", card: "#FFF4BF",
-    atoms: null,
+    atoms: [["H₂", "#FFFFFF", 0.9, 1, ""], ["H₂", "#FFFFFF", 0.9, 1, "interstitial e⁻"], ["H₂", "#FFFFFF", 0.9, 1, ""]],
     where: "J. Phys. Chem. Lett. · 2026",
     title: "Hydrogen turns into an electride",
     body: "Most molecular crystals become metallic through bond rearrangement. In molecular hydrogen, we showed that metallization is accompanied by electride-like behavior, as electrons move into interstitial sites among the H₂ molecules. These interstitial electrons may influence electron–phonon coupling and superconductivity, and similar features persist in metal superhydrides that retain H₂ units at moderate pressures.",
@@ -69,12 +69,25 @@ function Face({ face, scale = 1, y = 0 }) {
   );
 }
 
+function Blob({ x, id }) {
+  return (
+    <g transform={`translate(${x},0)`}>
+      <ellipse rx="26" ry="40" fill={`url(#br-${id})`} />
+      <circle className="twinkle" cx="-4" cy="-10" r="3" fill={INK} />
+      <circle className="twinkle" style={{ animationDelay: ".7s" }} cx="5" cy="9" r="3" fill={INK} />
+    </g>
+  );
+}
+
 function Atom({ a, i, n, lvl, x, sq, face, S }) {
-  const [sym, fill, cs, note] = a;
+  const [sym, fill, cs, blob, note] = a;
   const id = `L${lvl}A${i}`;
-  const isCs = sym === "Cs";
+  const isMol = sym === "H₂";
+  const isCs = sym === "Cs" && lvl === 1;
   const ecol = isCs ? "#3F5BFF" : "#F6D743";
   const esz = isCs ? 6 : 4.5;
+  const half = 75 + sq[2];
+  const flow = lvl === 2 && sym === "Si";
   return (
     <g transform={`translate(${x},100)`}>
       <g transform={`scale(${S})`}>
@@ -84,18 +97,57 @@ function Atom({ a, i, n, lvl, x, sq, face, S }) {
           <stop offset="60%" stopColor={fill} stopOpacity="0.5" />
           <stop offset="100%" stopColor={fill} stopOpacity="0" />
         </radialGradient>
+        <radialGradient id={`br-${id}`}>
+          <stop offset="0%" stopColor="#FF6B4A" stopOpacity="0.9" />
+          <stop offset="55%" stopColor="#F6D743" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#7FD9A0" stopOpacity="0" />
+        </radialGradient>
       </defs>
       <ellipse rx={sq[0] * 1.55 * cs} ry={sq[1] * 1.45 * cs} fill={`url(#cl-${id})`} />
       <ellipse rx={sq[0] * 1.12 * cs} ry={sq[1] * 1.05 * cs} fill="none" stroke={INK} strokeWidth="1.2" strokeDasharray="3 5" opacity="0.45" />
-      <g className="orbit" style={{ animationDuration: `${sq[3] * 1.2}s` }}>
-        {pts(46, 4, 0).map(([px, py], k) => <circle key={k} cx={px} cy={py} r={esz} fill={ecol} stroke={INK} strokeWidth="1.4" />)}
-      </g>
-      <g className="orbit-rev" style={{ animationDuration: `${sq[3] * 1.9}s` }}>
-        {pts(60, 2, 45).map(([px, py], k) => <circle key={k} cx={px} cy={py} r={esz} fill={ecol} stroke={INK} strokeWidth="1.4" />)}
-      </g>
+      {blob ? <Blob x={half} id={id} /> : null}
+      {blob && i === 0 ? <Blob x={-half} id={id} /> : null}
 
-      <ellipse rx={sq[0] * 0.78} ry={(sq[0] + (sq[1] - sq[0]) * 0.45) * 0.78} fill={fill} stroke={INK} strokeWidth="2.2" />
-      <Face face={face} />
+      {!isMol && (
+        <>
+          <g className="orbit" style={{ animationDuration: `${sq[3] * 1.2}s` }}>
+            {pts(46, 4, 0).map(([px, py], k) => <circle key={k} cx={px} cy={py} r={esz} fill={ecol} stroke={INK} strokeWidth="1.4" />)}
+          </g>
+          <g className="orbit-rev" style={{ animationDuration: `${sq[3] * 1.9}s` }}>
+            {pts(60, 2, 45).map(([px, py], k) => <circle key={k} cx={px} cy={py} r={esz} fill={ecol} stroke={INK} strokeWidth="1.4" />)}
+          </g>
+        </>
+      )}
+
+      {flow && (
+        <g>
+          {[-12, 2, 14].map((py, k) => (
+            <circle key={k} className="flowR" style={{ animationDelay: `${k * 0.6}s` }} cx="20" cy={py} r="4.5" fill="#F6D743" stroke={INK} strokeWidth="1.4" />
+          ))}
+        </g>
+      )}
+
+      {isMol ? (
+        <g>
+          <line x1="0" y1="-8" x2="0" y2="8" stroke={INK} strokeWidth="4" strokeLinecap="round" />
+          {[-24, 24].map((py) => (
+            <g key={py} transform={`translate(0,${py})`}>
+              <ellipse rx="21" ry="20" fill="#FFFFFF" stroke={INK} strokeWidth="2.5" />
+              <Face face={face} scale={0.78} />
+            </g>
+          ))}
+          <g className="orbit" style={{ animationDuration: `${sq[3]}s` }}>
+            <circle cx="0" cy="-52" r="4.5" fill="#F6D743" stroke={INK} strokeWidth="1.4" />
+            <circle cx="0" cy="52" r="4.5" fill="#F6D743" stroke={INK} strokeWidth="1.4" />
+          </g>
+        </g>
+      ) : (
+        <g>
+          <ellipse rx={sq[0] * 0.78} ry={(sq[0] + (sq[1] - sq[0]) * 0.45) * 0.78} fill={fill} stroke={INK} strokeWidth="2.2" />
+          <Face face={face} />
+        </g>
+      )}
+      {lvl === 3 && <path d="M26,-34 q6,10 0,13 q-6,-3 0,-13" fill="#7FDDEB" stroke={INK} strokeWidth="1.5" />}
       </g>
       <text y={78 * S + 26} textAnchor="middle" className="atom-sym">{sym}</text>
       <text y={78 * S + 46} textAnchor="middle" className="atom-note">{note}</text>
@@ -117,132 +169,6 @@ function AtomRow({ lvl, sq }) {
       {L.atoms.map((a, i) => (
         <Atom key={`${lvl}-${i}`} a={a} i={i} n={n} lvl={lvl} sq={sq} face={face} S={S} x={300 + (i - (n - 1) / 2) * spacing} />
       ))}
-    </svg>
-  );
-}
-
-// FeI Bader charge on Fe (HSE), PNAS 2025 SI Fig. 8c: its sign flips near 150 GPa
-const Q_P = [0, 50, 100, 150, 200, 250, 300];
-const Q_FE = [0.31, 0.15, 0.05, -0.02, -0.065, -0.1, -0.22];
-
-function interp(xs, ys, x) {
-  const q = Math.min(xs[xs.length - 1], Math.max(xs[0], x));
-  let k = 0;
-  while (k < xs.length - 2 && q > xs[k + 1]) k++;
-  return ys[k] + (ys[k + 1] - ys[k]) * ((q - xs[k]) / (xs[k + 1] - xs[k]));
-}
-
-// one compression cycle: hold at 0, squeeze to 300 GPa, hold, release
-const CYCLE = 11000;
-function cyclePressure(t) {
-  const u = (t % CYCLE) / CYCLE;
-  const ease = (x) => 0.5 - 0.5 * Math.cos(Math.PI * x);
-  if (u < 0.1) return 0;
-  if (u < 0.5) return 300 * ease((u - 0.1) / 0.4);
-  if (u < 0.68) return 300;
-  if (u < 0.92) return 300 * (1 - ease((u - 0.68) / 0.24));
-  return 0;
-}
-
-function useCyclingPressure() {
-  const [p, setP] = useState(300);
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
-    let raf;
-    const t0 = performance.now();
-    const tick = (now) => {
-      setP(cyclePressure(now - t0));
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, []);
-  return p;
-}
-
-function Cloud({ id, color, rx, ry }) {
-  return (
-    <>
-      <defs>
-        <radialGradient id={id}>
-          <stop offset="0%" stopColor={color} stopOpacity="0.9" />
-          <stop offset="60%" stopColor={color} stopOpacity="0.45" />
-          <stop offset="100%" stopColor={color} stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      <ellipse rx={rx} ry={ry} fill={`url(#${id})`} />
-    </>
-  );
-}
-
-function FeIScene() {
-  // iron and iodine squeezed together; the electron flow reverses near 150 GPa
-  const p = useCyclingPressure();
-  const qFe = interp(Q_P, Q_FE, p);
-  const feGives = qFe > 0;
-  const gap = 200 - 50 * (p / 300);
-  const xFe = 300 - gap / 2, xI = 300 + gap / 2;
-  const a = feGives ? xFe + 50 : xI - 56;
-  const b = feGives ? xI - 56 : xFe + 50;
-  const flow = Math.min(1, Math.abs(qFe) / 0.12);
-  return (
-    <svg className="atom-row" viewBox="95 0 410 245" role="img" aria-label="Iron and iodine being squeezed: electrons flow from iron to iodine at low pressure and from iodine to iron above about 150 GPa">
-      <text x="300" y="22" textAnchor="middle" className="svg-mono">{Math.round(p)} GPa</text>
-      <g transform={`translate(${xFe},125)`}><Cloud id="cl-fe" color="#FFA98F" rx="86" ry="82" /></g>
-      <g transform={`translate(${xI},125)`}><Cloud id="cl-i" color="#C5A8FF" rx="94" ry="90" /></g>
-      <g opacity={flow}>
-        {[0, 1, 2].map((k) => (
-          <circle key={k} className="e-flow" r="6" fill="#F6D743" stroke={INK} strokeWidth="1.5"
-            style={{ offsetPath: `path("M${a},${125 + (k - 1) * 16} L${b},${125 + (k - 1) * 16}")`, animationDelay: `${k * 0.6}s` }} />
-        ))}
-      </g>
-      <g transform={`translate(${xFe},125)`}>
-        <circle r="50" fill="#FFA98F" stroke={INK} strokeWidth="2.2" />
-        <Face face={feGives ? faces[1] : faces[0]} />
-        <text y="84" textAnchor="middle" className="atom-sym">Fe</text>
-        <text y="104" textAnchor="middle" className="atom-note">{feGives ? "gives e⁻" : "takes e⁻"}</text>
-      </g>
-      <g transform={`translate(${xI},125)`}>
-        <circle r="56" fill="#C5A8FF" stroke={INK} strokeWidth="2.2" />
-        <Face face={feGives ? faces[0] : faces[1]} />
-        <text y="90" textAnchor="middle" className="atom-sym">I</text>
-        <text y="110" textAnchor="middle" className="atom-note">{feGives ? "takes e⁻" : "gives e⁻"}</text>
-      </g>
-    </svg>
-  );
-}
-
-// three H₂ molecules; electrons leave the H–H bonds and pool in the gaps between them
-const H2_X = [175, 300, 425];
-const H2_TILT = [-18, 14, -10];
-const GAPS = [112, 237, 362, 487];
-
-function HydrogenScene({ face }) {
-  return (
-    <svg className="atom-row" viewBox="75 45 450 190" role="img" aria-label="H₂ molecules giving electrons to the interstitial gaps between them">
-      {GAPS.map((x, k) => (
-        <g key={x} transform={`translate(${x},120)`} className="breathe" style={{ animationDelay: `${k * 0.7}s` }}>
-          <Cloud id={`gap-${k}`} color="#F6D743" rx="32" ry="58" />
-        </g>
-      ))}
-      {H2_X.map((x, i) =>
-        [-1, 1].map((side, j) => (
-          <circle key={`${x}${side}`} className="e-donate" r="5.5" fill="#F6D743" stroke={INK} strokeWidth="1.4"
-            style={{ offsetPath: `path("M${x},120 Q${x + side * 36},${96 + j * 48} ${x + side * 63},120")`, animationDelay: `${i * 1.3 + j * 2}s` }} />
-        ))
-      )}
-      {H2_X.map((x, i) => (
-        <g key={x} transform={`translate(${x},120) rotate(${H2_TILT[i]})`}>
-          <line x1="0" y1="-12" x2="0" y2="12" stroke={INK} strokeWidth="4" strokeLinecap="round" />
-          {[-26, 26].map((y) => (
-            <g key={y} transform={`translate(0,${y})`}>
-              <circle r="22" fill="#F4C9CF" stroke={INK} strokeWidth="2.4" />
-              <g transform={`rotate(${-H2_TILT[i]})`}><Face face={face} scale={0.75} /></g>
-            </g>
-          ))}
-        </g>
-      ))}
-      {H2_X.map((x) => <text key={x} x={x} y="222" textAnchor="middle" className="atom-sym">H₂</text>)}
     </svg>
   );
 }
@@ -322,10 +248,7 @@ export default function PressureExplorer({ initialLevel = 0 }) {
     <div className="explorer">
       <div className="explorer-grid">
         <div className="stage" style={{ background: L.stage }}>
-          {lvl === 0 ? <TmdScene />
-            : lvl === 2 ? <FeIScene />
-            : lvl === 3 ? <HydrogenScene face={faces[3]} />
-            : <AtomRow lvl={lvl} sq={sq} />}
+          {lvl === 0 ? <TmdScene /> : <AtomRow lvl={lvl} sq={sq} />}
           <span className="pill mono">≈ {gpa} GPa · {L.mood}</span>
         </div>
         <div className="project-card" style={{ background: L.card }}>

@@ -44,17 +44,9 @@ p { margin: 0; }
 .bob { animation: bob 3.2s ease-in-out infinite; }
 .twinkle { transform-box: fill-box; transform-origin: center; animation: twinkle 2.4s ease-in-out infinite; }
 .flowR { animation: flowR 1.8s ease-in infinite; }
-@keyframes eFlow { 0% { offset-distance: 0%; opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
-@keyframes breathe { 0%, 100% { opacity: .82; } 50% { opacity: 1; } }
-.e-flow { offset-rotate: 0deg; opacity: 0; animation: eFlow 1.8s ease-in-out infinite; }
-.breathe { animation: breathe 3s ease-in-out infinite; }
-@keyframes eDonate { 0% { offset-distance: 0%; opacity: 0; } 15% { opacity: 1; } 70% { offset-distance: 100%; opacity: 1; } 85%, 100% { offset-distance: 100%; opacity: 0; } }
-.e-donate { offset-rotate: 0deg; opacity: 0; animation: eDonate 4s ease-in-out infinite; }
 .etch { animation: etch 3.2s ease-in infinite; }
 @media (prefers-reduced-motion: reduce) {
-  .orbit, .orbit-rev, .bob, .twinkle, .flowR, .etch, .breathe { animation: none; }
-  .e-flow { animation: none; opacity: 1; offset-distance: 55%; }
-  .e-donate { animation: none; opacity: 1; offset-distance: 60%; }
+  .orbit, .orbit-rev, .bob, .twinkle, .flowR, .etch { animation: none; }
   html { scroll-behavior: auto; }
 }
 
