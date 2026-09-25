@@ -18,6 +18,66 @@ const mouths = [
   "M-12,32 a12,14 0 1,0 24,0 a12,14 0 1,0 -24,0",
 ];
 
+const INK = "#1F1B4D";
+const faces = ["sparkle", "happy", "wink", "ooh", "sparkle"];
+
+function Eye({ x }) {
+  return (
+    <g>
+      <ellipse cx={x} cy="12" rx="9.5" ry="11" fill={INK} />
+      <circle cx={x + 3.2} cy="7.5" r="3.6" fill="#FFFFFF" />
+      <circle cx={x - 3} cy="16" r="1.6" fill="#FFFFFF" />
+    </g>
+  );
+}
+
+function Face({ kind }) {
+  const cheeks = (
+    <g fill="#FF8A7A" opacity="0.55">
+      <ellipse cx="-50" cy="30" rx="13" ry="7.5" />
+      <ellipse cx="50" cy="30" rx="13" ry="7.5" />
+    </g>
+  );
+  const smile = <path d="M-9,30 q4.5,6 9,0 q4.5,6 9,0" fill="none" stroke={INK} strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />;
+  if (kind === "happy") {
+    return (
+      <g>
+        <path d="M-40,14 q9,-12 18,0 M22,14 q9,-12 18,0" fill="none" stroke={INK} strokeWidth="4.5" strokeLinecap="round" />
+        <path d="M-7,27 q7,10 14,0 z" fill={INK} />
+        {cheeks}
+      </g>
+    );
+  }
+  if (kind === "wink") {
+    return (
+      <g>
+        <Eye x={-31} />
+        <path d="M22,13 q9,-9 18,0" fill="none" stroke={INK} strokeWidth="4.5" strokeLinecap="round" />
+        {smile}
+        {cheeks}
+      </g>
+    );
+  }
+  if (kind === "ooh") {
+    return (
+      <g>
+        <Eye x={-31} />
+        <Eye x={31} />
+        <ellipse cx="0" cy="33" rx="5" ry="6" fill={INK} />
+        {cheeks}
+      </g>
+    );
+  }
+  return (
+    <g>
+      <Eye x={-31} />
+      <Eye x={31} />
+      {smile}
+      {cheeks}
+    </g>
+  );
+}
+
 function ring(r, n, offsetDeg) {
   return Array.from({ length: n }, (_, k) => {
     const t = ((offsetDeg + (360 * k) / n) * Math.PI) / 180;
@@ -58,6 +118,7 @@ export default function FunFactAtom() {
           </g>
           <circle r="88" fill="#F6D743" stroke="#1F1B4D" strokeWidth="2.5" />
           <ellipse cx="-30" cy="-40" rx="22" ry="12" fill="#FFFFFF" opacity="0.55" transform="rotate(-30 -30 -40)" />
+          <Face kind={faces[fact % faces.length]} />
         </svg>
       </button>
       <span className="mono muted small">tap the atom for the next one</span>
