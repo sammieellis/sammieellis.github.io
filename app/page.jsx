@@ -279,7 +279,7 @@ export default function Page() {
 
         <section id="news" className="wrap section news">
           <figure className="polaroid big" style={{ "--tilt": "-1.5deg" }}>
-            <img src="/samantha-ellis.jpg" alt="Samantha Ellis holding her dog" />
+            <img src="/samantha-ellis-portrait.jpg" alt="Samantha Ellis holding her dog" />
             <figcaption>me + my favorite lab buddy</figcaption>
           </figure>
           <div className="news-list">
