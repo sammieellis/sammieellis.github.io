@@ -84,11 +84,11 @@ const quotes = [
 ];
 
 const photos = [
-  { src: "/journal-club-discussion.jpeg", alt: "Members of the CSUN Chemistry and Biochemistry Journal Club after a meeting", caption: "Journal Club meetup", tilt: -2 },
-  { src: "/research-showcase-presentation.jpg", alt: "Samantha Ellis presenting deep-Earth chemistry at a CSUN student research showcase", caption: "Deep-Earth chemistry at a student research showcase (MSA × SACNAS)", tilt: 1.5 },
-  { src: "/cv-workshop.jpg", alt: "Samantha Ellis leading a curriculum vitae workshop for CSUN students", caption: "Leading a CV workshop for the Chem & Biochem Club", tilt: -1 },
-  { src: "/chemistry-club-pi-day.jpg", alt: "Samantha Ellis with members of the CSUN Chemistry and Biochemistry Club at a Pi Day event", caption: "Women in Science Pi Day booth", tilt: 2 },
-  { src: "/journal-club-materials-chemistry.jpeg", alt: "CSUN Chemistry and Biochemistry Journal Club members at a materials chemistry discussion", caption: "Materials chemistry night at Journal Club", tilt: -1.5 },
+  { src: "/journal-club-discussion.jpeg", alt: "Members of the CSUN Chemistry and Biochemistry Journal Club after a meeting", caption: "Journal Club meetup", tilt: -1 },
+  { src: "/research-showcase-presentation.jpg", alt: "Samantha Ellis presenting deep-Earth chemistry at a CSUN student research showcase", caption: "Deep-Earth chemistry at a student research showcase (MSA × SACNAS)", tilt: 0.75 },
+  { src: "/cv-workshop.jpg", alt: "Samantha Ellis leading a curriculum vitae workshop for CSUN students", caption: "Leading a CV workshop for the Chem & Biochem Club", tilt: -0.5 },
+  { src: "/chemistry-club-pi-day.jpg", alt: "Samantha Ellis with members of the CSUN Chemistry and Biochemistry Club at a Pi Day event", caption: "Women in Science Pi Day booth", tilt: 1 },
+  { src: "/journal-club-materials-chemistry.jpeg", alt: "CSUN Chemistry and Biochemistry Journal Club members at a materials chemistry discussion", caption: "Materials chemistry night at Journal Club", tilt: -0.75 },
 ];
 
 const news = [
@@ -130,9 +130,7 @@ export default function Page() {
               <circle cx="-24" cy="0" r="3.5" fill="#F6D743" stroke="#1F1B4D" strokeWidth="1.2" />
             </g>
             <circle r="14" fill="#F6D743" stroke="#1F1B4D" strokeWidth="2" />
-            <circle cx="-5" cy="-2" r="2" fill="#1F1B4D" />
-            <circle cx="5" cy="-2" r="2" fill="#1F1B4D" />
-            <path d="M-4,4 Q0,8 4,4" fill="none" stroke="#1F1B4D" strokeWidth="1.6" strokeLinecap="round" />
+            
           </svg>
           <span>Samantha Ellis</span>
         </a>
@@ -154,20 +152,17 @@ export default function Page() {
 
       <main id="top">
         <section className="hero wrap">
-          <Sparkle className="twinkle" style={{ left: "6%", top: "4%" }} />
-          <Sparkle className="twinkle" style={{ left: "48%", top: "8%", animationDelay: ".8s" }} />
-          <Sparkle className="twinkle" style={{ right: "3%", bottom: "6%", animationDelay: "1.5s" }} />
           <div className="hero-copy">
             <div className="badges">
               <span className="badge badge-yellow">NSF Graduate Research Fellow</span>
               <span className="badge">M.S. Chemistry · CSUN</span>
               <span className="badge">Oak Ridge National Lab</span>
             </div>
-            <h1>Hi, I’m <span className="pink">Samantha!</span></h1>
+            <h1>Samantha <span className="pink">Ellis</span></h1>
             <p className="lead">
-              I’m a computational materials chemist. I squeeze atoms (on a computer!) to watch chemical bonds rewrite their own rules, from{" "}
-              <mark className="hl-peach">iron at Earth’s core</mark> to <mark className="hl-lav">core electrons that start bonding</mark>, and I train{" "}
-              <mark className="hl-mint">machine learning</mark> to speed up the hunt for new superhydrides.
+              I’m a computational materials chemist studying how chemical bonds rewrite their rules under extreme conditions, from{" "}
+              <mark className="hl-peach">iron at Earth’s core</mark> to <mark className="hl-lav">core electrons that start bonding</mark>, using{" "}
+              <mark className="hl-mint">machine learning</mark> to accelerate the search for new superhydrides.
             </p>
             <p className="sub">
               Currently: M.S. research with Prof. Maosheng Miao at CSUN, and a Research Student Internship at Oak Ridge National Laboratory with Eva Zarkadoula and Jingsong Huang.
@@ -184,8 +179,8 @@ export default function Page() {
         <section id="research" className="panel squeeze">
           <div className="section-head">
             <div>
-              <span className="elfbar" aria-hidden="true" /><span className="eyebrow">MY RESEARCH · INTERACTIVE</span>
-              <h2>Squeeze the atoms!</h2>
+              <span className="elfbar" aria-hidden="true" /><span className="eyebrow">RESEARCH · DRAG THE SLIDER</span>
+              <h2>Chemistry under pressure</h2>
             </div>
             <p>Drag the slider from 0 GPa (everyday pressure) up to the millions of atmospheres where even hydrogen changes character. Each stop is one of my projects.</p>
           </div>
@@ -214,7 +209,7 @@ export default function Page() {
               </a>
             ))}
           </div>
-          <p className="note">Psst: earlier work may be listed under <strong>Samantha Scott</strong>.</p>
+          <p className="note">Earlier work may appear under <strong>Samantha Scott</strong>.</p>
         </section>
 
         <section id="presentations" className="wrap section">
@@ -263,7 +258,7 @@ export default function Page() {
               </div>
             </div>
             <div className="quotes">
-              <span className="eyebrow">WHAT MY STUDENTS SAID (ANONYMOUSLY!)</span>
+              <span className="eyebrow">FROM ANONYMOUS STUDENT EVALUATIONS</span>
               {quotes.map((q) => (
                 <blockquote key={q.text} className={`bubble bubble-${q.side}`} style={{ background: q.color }}>
                   <p>“{q.text}”</p>
@@ -283,7 +278,7 @@ export default function Page() {
         </section>
 
         <section id="news" className="wrap section news">
-          <figure className="polaroid big" style={{ "--tilt": "-3deg" }}>
+          <figure className="polaroid big" style={{ "--tilt": "-1.5deg" }}>
             <img src="/samantha-ellis.jpg" alt="Samantha Ellis holding her dog" />
             <figcaption>me + my favorite lab buddy</figcaption>
           </figure>
@@ -293,7 +288,7 @@ export default function Page() {
               <a key={n.href} className="news-card wiggle" href={n.href} target="_blank" rel="noreferrer" style={{ background: n.color }}>
                 <img src={n.img} alt={n.alt} loading="lazy" />
                 <span className="news-text">
-                  <span className="mono small muted">{n.isNew && <span className="new">NEW!</span>}{n.meta}</span>
+                  <span className="mono small muted">{n.isNew && <span className="new">Featured</span>}{n.meta}</span>
                   <span className="news-title">{n.title}</span>
                 </span>
               </a>
@@ -306,14 +301,11 @@ export default function Page() {
         <div className="footer-left">
           <svg width="80" height="80" viewBox="-45 -45 90 90" aria-hidden="true">
             <circle r="32" fill="#F6D743" stroke="#F6F5FB" strokeWidth="3" />
-            <path d="M-15,-6 q4,-6 8,0 M7,-6 q4,-6 8,0" fill="none" stroke="#1F1B4D" strokeWidth="3" strokeLinecap="round" />
-            <path d="M-10,8 Q0,18 10,8" fill="#1F1B4D" stroke="#1F1B4D" strokeWidth="3" strokeLinejoin="round" />
-            <ellipse cx="-19" cy="6" rx="5" ry="3" fill="#D8452B" opacity="0.5" />
-            <ellipse cx="19" cy="6" rx="5" ry="3" fill="#D8452B" opacity="0.5" />
+            
           </svg>
           <div>
-            <p className="footer-title">Let’s bond!</p>
-            <p className="footer-sub">Collaborations, questions, or just nerding out about electrons. My inbox is open.</p>
+            <p className="footer-title">Let’s talk chemistry.</p>
+            <p className="footer-sub">Open to collaborations, questions, and conversations about electronic structure.</p>
           </div>
         </div>
         <div className="footer-links">

@@ -14,7 +14,7 @@ const faces = [
 // [symbol, color, cloudScale, interstitialBlob, note]
 const LEVELS = [
   {
-    name: "Lab bench", gpa: "≈ 0 GPa", mood: "fluorine plucking sulfur off the surface", stage: "#E0F5E7", card: "#DDF5E4",
+    name: "Lab bench", gpa: "≈ 0 GPa", mood: "F removes surface S as SF₃", stage: "#E0F5E7", card: "#DDF5E4",
     atoms: null,
     where: "Oak Ridge National Lab · 2026",
     title: "Etching 2D materials, one atomic layer at a time",
@@ -34,7 +34,7 @@ const LEVELS = [
     atoms: [["Si", "#9DB0FF", 0.8, 0, "gives e⁻ →"], ["Fe", "#FFA98F", 1.3, 0, "accepts e⁻"]],
     where: "PNAS · 2025",
     title: "Iron switches sides",
-    body: "At the surface, iron gives electrons away (that’s rust!). Squeezed to core pressures (up to ~350 GPa), iron’s compact 3d bands drop in energy relative to the p-block elements’ np orbitals, so electrons flow toward iron instead. I built HSE convex hulls and Bader charge maps across Fe–p-block systems. The twist: elements that bond most strongly to core iron are the least depleted from the mantle, which points to volatile loss during Earth’s formation rather than being locked in the core.",
+    body: "At the surface, iron gives electrons away (think rust). Squeezed to core pressures (up to ~350 GPa), iron’s compact 3d bands drop in energy relative to the p-block elements’ np orbitals, so electrons flow toward iron instead. I built HSE convex hulls and Bader charge maps across Fe–p-block systems. The twist: elements that bond most strongly to core iron are the least depleted from the mantle, which points to volatile loss during Earth’s formation rather than being locked in the core.",
     tags: ["HSE DFT", "convex hulls", "Bader charge", "Fe–p-block"],
   },
   {
@@ -130,7 +130,7 @@ function Atom({ a, i, n, lvl, x, sq, face }) {
           {[-24, 24].map((py) => (
             <g key={py} transform={`translate(0,${py})`}>
               <ellipse rx="21" ry="20" fill="#FFFFFF" stroke={INK} strokeWidth="2.5" />
-              <Face face={face} scale={0.78} />
+              <text y="5" textAnchor="middle" className="atom-in">H</text>
             </g>
           ))}
           <g className="orbit" style={{ animationDuration: `${sq[3]}s` }}>
@@ -141,12 +141,10 @@ function Atom({ a, i, n, lvl, x, sq, face }) {
       ) : (
         <g>
           <ellipse rx={sq[0] * 0.72} ry={sq[1] * 0.72} fill={fill} stroke={INK} strokeWidth="2.5" />
-          <Face face={face} />
+          <text y="7" textAnchor="middle" className="atom-in">{sym}</text>
         </g>
       )}
-      {lvl === 3 && <path d="M26,-34 q6,10 0,13 q-6,-3 0,-13" fill="#7FDDEB" stroke={INK} strokeWidth="1.5" />}
-      <text y="100" textAnchor="middle" className="atom-sym">{sym}</text>
-      <text y="120" textAnchor="middle" className="atom-note">{note}</text>
+      <text y="100" textAnchor="middle" className="atom-note">{note}</text>
     </g>
   );
 }
@@ -191,17 +189,13 @@ function TmdScene() {
       {mo.map((mx) => (
         <g key={mx}>
           <circle cx={mx} cy="150" r="26" fill="#9DB0FF" stroke={INK} strokeWidth="2.5" />
-          <circle cx={mx - 8} cy="146" r="2.8" fill={INK} />
-          <circle cx={mx + 8} cy="146" r="2.8" fill={INK} />
-          <path d={`M${mx - 6},155 Q${mx},161 ${mx + 6},155`} fill="none" stroke={INK} strokeWidth="2.2" strokeLinecap="round" />
-          <ellipse cx={mx - 14} cy="154" rx="4" ry="2.5" fill="#D8452B" opacity="0.4" />
-          <ellipse cx={mx + 14} cy="154" rx="4" ry="2.5" fill="#D8452B" opacity="0.4" />
+          <text x={mx} y="155" textAnchor="middle" className="atom-in">Mo</text>
         </g>
       ))}
       <g className="etch">
         {sf3.map(([x, y]) => <line key={`b${x}`} x1="320" y1="92" x2={x} y2={y} stroke={INK} strokeWidth="3" />)}
         <circle cx="320" cy="92" r="18" fill="#F6D743" stroke={INK} strokeWidth="2.5" />
-        <path d="M314,88 l4,3 l-4,3 M326,88 l-4,3 l4,3" fill="none" stroke={INK} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <text x="320" y="97" textAnchor="middle" className="atom-in small-in">S</text>
         {sf3.map(([x, y]) => (
           <g key={`f${x}`}>
             <circle cx={x} cy={y} r="11" fill="#FF9A80" stroke={INK} strokeWidth="2.2" />
