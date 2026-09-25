@@ -42,8 +42,16 @@ p { margin: 0; }
 .twinkle { transform-box: fill-box; transform-origin: center; animation: twinkle 2.4s ease-in-out infinite; }
 .flowR { animation: flowR 1.8s ease-in infinite; }
 .etch { animation: etch 3.2s ease-in infinite; }
+@keyframes eHop { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+@keyframes breathe { 0%, 100% { transform: scale(.92); opacity: .8; } 50% { transform: scale(1.06); opacity: 1; } }
+@keyframes stretchUp { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes stretchDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+.e-hop { offset-rotate: 0deg; animation: eHop 9s linear infinite; }
+.breathe { animation: breathe 3s ease-in-out infinite; }
+.stretch-up { animation: stretchUp 2.6s ease-in-out infinite; }
+.stretch-down { animation: stretchDown 2.6s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) {
-  .orbit, .orbit-rev, .bob, .twinkle, .flowR, .etch { animation: none; }
+  .orbit, .orbit-rev, .bob, .twinkle, .flowR, .etch, .e-hop, .breathe, .stretch-up, .stretch-down { animation: none; }
   html { scroll-behavior: auto; }
 }
 

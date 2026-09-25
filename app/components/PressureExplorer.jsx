@@ -166,6 +166,64 @@ function AtomRow({ lvl }) {
   );
 }
 
+// Path the interstitial electrons follow: it weaves over and under the H₂ molecules
+// through the voids between them, the delocalized network behind metallization.
+const CHANNEL =
+  "M20,100 C70,104 100,44 150,44 C200,44 205,95 225,97 C248,100 258,160 300,160 C342,160 352,110 375,106 C398,102 405,44 450,44 C500,44 505,95 530,97 C555,99 570,100 590,100";
+const H2 = [[150, 100, -32], [300, 100, 38], [450, 100, -22]];
+const POCKETS = [[80, 92, 20, 30, -20], [225, 98, 22, 34, 15], [375, 104, 22, 34, -12], [525, 94, 20, 30, 18]];
+
+function HydrogenScene({ face }) {
+  return (
+    <svg className="atom-row" viewBox="0 0 600 240" role="img" aria-label="Tilted H₂ molecules with electrons pooling in, and flowing through, the interstitial gaps between them">
+      <defs>
+        <radialGradient id="h2-pocket">
+          <stop offset="0%" stopColor="#FFD23F" stopOpacity="0.95" />
+          <stop offset="65%" stopColor="#FFE58A" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#FFE58A" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <path d={CHANNEL} fill="none" stroke="#FFD66B" strokeWidth="30" strokeLinecap="round" opacity="0.35" />
+      <path d={CHANNEL} fill="none" stroke={INK} strokeWidth="1.2" strokeDasharray="3 6" opacity="0.35" />
+      {POCKETS.map(([x, y, rx, ry, rot], k) => (
+        <g key={x} transform={`translate(${x},${y}) rotate(${rot})`}>
+          <g className="breathe" style={{ animationDelay: `${k * 0.5}s` }}>
+            <ellipse rx={rx * 1.5} ry={ry * 1.3} fill="url(#h2-pocket)" />
+            <ellipse rx={rx} ry={ry} fill="none" stroke={INK} strokeWidth="1.2" strokeDasharray="3 5" opacity="0.45" />
+          </g>
+        </g>
+      ))}
+      {H2.map(([x, y, rot]) => (
+        <g key={x} transform={`translate(${x},${y}) rotate(${rot})`}>
+          <line x1="0" y1="-8" x2="0" y2="8" stroke={INK} strokeWidth="4" strokeLinecap="round" />
+          {[-1, 1].map((side) => (
+            <g key={side} transform={`translate(0,${side * 25})`}>
+              <g className={side < 0 ? "stretch-up" : "stretch-down"}>
+                <circle r="20" fill="#FFE3EC" stroke={INK} strokeWidth="2.5" />
+                <g transform={`rotate(${-rot})`}><Face face={face} scale={0.74} /></g>
+              </g>
+            </g>
+          ))}
+        </g>
+      ))}
+      {[0, 1, 2, 3, 4, 5].map((k) => (
+        <circle
+          key={k}
+          className="e-hop"
+          r="5.5"
+          fill="#FFD23F"
+          stroke={INK}
+          strokeWidth="1.4"
+          style={{ offsetPath: `path("${CHANNEL}")`, offsetDistance: `${8 + k * 16}%`, animationDelay: `${-k * 1.5}s` }}
+        />
+      ))}
+      <path d="M326,52 q6,10 0,13 q-6,-3 0,-13" fill="#8CCBFF" stroke={INK} strokeWidth="1.5" />
+      {H2.map(([x]) => <text key={x} x={x} y="208" textAnchor="middle" className="atom-sym">H₂</text>)}
+      <text x="300" y="232" textAnchor="middle" className="atom-note">e⁻ localized in the interstitial gaps, flowing between H₂</text>
+    </svg>
+  );
+}
+
 function TmdScene() {
   const mo = [70, 170, 270, 370, 470];
   const s = [120, 220, 320, 420];
@@ -234,7 +292,7 @@ export default function PressureExplorer({ initialLevel = 0 }) {
     <div className="explorer">
       <div className="explorer-grid">
         <div className="stage" style={{ background: L.stage }}>
-          {lvl === 0 ? <TmdScene /> : <AtomRow lvl={lvl} />}
+          {lvl === 0 ? <TmdScene /> : lvl === 3 ? <HydrogenScene face={faces[3]} /> : <AtomRow lvl={lvl} />}
           <span className="pill mono">{L.gpa} · {L.mood}</span>
         </div>
         <div className="project-card" style={{ background: L.card }}>
