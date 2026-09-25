@@ -19,32 +19,26 @@ const mouths = [
 ];
 
 const INK = "#1F1B4D";
-const faces = ["sparkle", "happy", "wink", "ooh", "sparkle"];
+const faces = ["smile", "happy", "wink", "ooh", "happy"];
 
 function Eye({ x }) {
-  return (
-    <g>
-      <ellipse cx={x} cy="12" rx="9.5" ry="11" fill={INK} />
-      <circle cx={x + 3.2} cy="7.5" r="3.6" fill="#FFFFFF" />
-      <circle cx={x - 3} cy="16" r="1.6" fill="#FFFFFF" />
-    </g>
-  );
+  return <ellipse cx={x} cy="10" rx="7" ry="9" fill={INK} />;
 }
 
 function Face({ kind }) {
   const cheeks = (
     <g fill="#FF8A7A" opacity="0.55">
-      <ellipse cx="-50" cy="30" rx="13" ry="7.5" />
-      <ellipse cx="50" cy="30" rx="13" ry="7.5" />
+      <ellipse cx="-48" cy="28" rx="13" ry="7.5" />
+      <ellipse cx="48" cy="28" rx="13" ry="7.5" />
     </g>
   );
-  const smile = <path d="M-9,30 q4.5,6 9,0 q4.5,6 9,0" fill="none" stroke={INK} strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />;
+  const open = <path d="M-15,24 q15,22 30,0 z" fill={INK} stroke={INK} strokeWidth="2.5" strokeLinejoin="round" />;
+  const tongue = <path d="M-7,34 q7,-6 14,0 q-7,6 -14,0 z" fill="#FF8A7A" />;
   if (kind === "happy") {
     return (
       <g>
-        <path d="M-40,14 q9,-12 18,0 M22,14 q9,-12 18,0" fill="none" stroke={INK} strokeWidth="4.5" strokeLinecap="round" />
-        <path d="M-7,27 q7,10 14,0 z" fill={INK} />
-        {cheeks}
+        <path d="M-40,12 q9,-12 18,0 M22,12 q9,-12 18,0" fill="none" stroke={INK} strokeWidth="4.5" strokeLinecap="round" />
+        {open}{tongue}{cheeks}
       </g>
     );
   }
@@ -52,9 +46,8 @@ function Face({ kind }) {
     return (
       <g>
         <Eye x={-31} />
-        <path d="M22,13 q9,-9 18,0" fill="none" stroke={INK} strokeWidth="4.5" strokeLinecap="round" />
-        {smile}
-        {cheeks}
+        <path d="M22,12 q9,-10 18,0" fill="none" stroke={INK} strokeWidth="4.5" strokeLinecap="round" />
+        {open}{tongue}{cheeks}
       </g>
     );
   }
@@ -63,7 +56,7 @@ function Face({ kind }) {
       <g>
         <Eye x={-31} />
         <Eye x={31} />
-        <ellipse cx="0" cy="33" rx="5" ry="6" fill={INK} />
+        <ellipse cx="0" cy="31" rx="6.5" ry="8" fill={INK} />
         {cheeks}
       </g>
     );
@@ -72,8 +65,7 @@ function Face({ kind }) {
     <g>
       <Eye x={-31} />
       <Eye x={31} />
-      {smile}
-      {cheeks}
+      {open}{tongue}{cheeks}
     </g>
   );
 }
