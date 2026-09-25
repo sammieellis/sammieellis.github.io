@@ -14,12 +14,12 @@ const faces = [
 // [symbol, color, cloudScale, interstitialBlob, note]
 const LEVELS = [
   {
-    name: "Lab bench", gpa: "≈ 0 GPa", mood: "F etches surface S, which leaves as SF₃", stage: "#E0F5E7", card: "#DDF5E4",
+    name: "Lab bench", gpa: "≈ 0 GPa", mood: "small AIMD runs train an ML potential to go bigger", stage: "#E0F5E7", card: "#DDF5E4",
     atoms: null,
     where: "Oak Ridge National Lab · 2026",
-    title: "Etching 2D materials, one atomic layer at a time",
-    body: "At ambient pressure, I study fluorine-driven gas-assisted etching of MoS₂ and WS₂ monolayers. I model the reaction pathways with AIMD and MLFF-AIMD and use them to fine-tune a machine-learned interatomic potential, extending etching simulations to nanosecond timescales and nanometer length scales.",
-    tags: ["AIMD", "MLFF-AIMD", "MLIP fine-tuning", "reaction pathways"],
+    title: "Scaling up simulations with machine learning",
+    body: "At ambient pressure, I use machine learning to push atomistic simulations past the limits of first-principles methods. Short AIMD and MLFF-AIMD runs on small cells provide the training data to fine-tune a machine-learned interatomic potential, which then reaches nanosecond timescales and nanometer length scales. My test case is fluorine-driven gas-assisted etching of MoS₂ and WS₂ monolayers, where the chemistry is too complex to capture in small, short simulations alone.",
+    tags: ["MLIP fine-tuning", "AIMD", "MLFF-AIMD", "large-scale MD"],
   },
   {
     name: "Beyond +1", gpa: "~221 GPa", mood: "Cs 5p electrons take part in bonding", stage: "#E6EBFF", card: "#E3E8FF",

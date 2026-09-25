@@ -251,3 +251,33 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
 .quotes .eyebrow { margin-bottom: 8px; }
 .bubble, .bubble-left, .bubble-right { max-width: none; align-self: stretch; background: none; border: none; border-radius: 0; padding: 18px 0; border-top: 1px solid #DDE1F2; }
 .bubble p { font-size: 19px; font-style: italic; font-weight: 450; }
+
+/* ---------- phones ---------- */
+@media (max-width: 720px) {
+  /* all six nav tiles visible in a 3 × 2 grid instead of a hidden side-scroll */
+  .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: visible; padding: 0; gap: 8px; }
+  .tile { min-width: 0; height: 54px; padding: 5px 8px 6px; }
+  .tile-n { font-size: 11px; }
+  .tile-label { font-size: 14px; }
+  .hero { padding-bottom: 48px; }
+  .hero h1 { font-size: 46px; }
+  .speech { margin: 0 0 16px; min-height: 0; padding: 16px 20px; }
+  .speech p { font-size: 18px; }
+  .mascot { width: min(230px, 62vw); }
+  /* explorer: picture, then slider, then the project text, so the picture changes while dragging */
+  .explorer { gap: 20px; }
+  .explorer-grid { display: contents; }
+  .stage { order: 1; min-height: 0; padding: 16px 12px; }
+  .pressure-controls { order: 2; }
+  .project-card { order: 3; }
+  .pressure-controls input { height: 44px; }
+  .pressure-controls input::-webkit-slider-thumb { width: 32px; height: 32px; margin-top: -11px; }
+  .pressure-controls input::-moz-range-thumb { width: 28px; height: 28px; }
+  .section-head h2 { font-size: 38px; }
+  .underline-link { display: inline-block; padding: 10px 0; }
+  .scale-labels, .stop .mono, .thumb figcaption { font-size: 12px; }
+}
+@media (max-width: 380px) {
+  .tile-label { font-size: 13px; }
+  .hero h1 { font-size: 40px; }
+}
