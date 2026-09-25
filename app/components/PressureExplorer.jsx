@@ -17,7 +17,7 @@ const LEVELS = [
     name: "Lab bench", gpa: "≈ 0 GPa", mood: "F etches surface S, which leaves as SF₃", stage: "#E0F5E7", card: "#DDF5E4",
     atoms: null,
     where: "Oak Ridge National Lab · 2026",
-    title: "Etching 2D materials, one atomic layer at a time",
+    title: "Etching 2D materials with fluorine",
     body: "At ambient pressure, I study fluorine-driven gas-assisted etching of MoS₂ and WS₂ monolayers. I model the reaction pathways with AIMD and MLFF-AIMD and use them to fine-tune a machine-learned interatomic potential, extending etching simulations to nanosecond timescales and nanometer length scales.",
     tags: ["AIMD", "MLFF-AIMD", "MLIP fine-tuning", "reaction pathways"],
   },
