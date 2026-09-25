@@ -14,7 +14,7 @@ export const metadata = {
     siteName: "Samantha Ellis",
     title,
     description,
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Top of Samantha Ellis's research website" }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Samantha Ellis, computational materials chemist, NSF Graduate Research Fellow" }],
   },
   twitter: { card: "summary_large_image", title, description, images: ["/og-image.png"] },
 };
