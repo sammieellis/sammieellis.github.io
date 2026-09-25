@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const INK = "#1F1B4D";
 
@@ -30,7 +30,7 @@ const LEVELS = [
     tags: ["CALYPSO", "ternary convex hulls", "FEFF XANES", "Bader charge"],
   },
   {
-    name: "Earth’s core", gpa: "up to 350 GPa", mood: "FeSi (1:1), charge transfer from Si to Fe", stage: "#FFE1D6", card: "#FFE1D8",
+    name: "Earth’s core", gpa: "up to 350 GPa", mood: "Fe–I charge transfer reverses near 150 GPa", stage: "#FFE1D6", card: "#FFE1D8",
     atoms: null,
     where: "PNAS · 2025",
     title: "Iron switches sides",
@@ -121,86 +121,129 @@ function AtomRow({ lvl, sq }) {
   );
 }
 
-// Bader charges of FeSi (HSE), PNAS 2025 SI Fig. 7c; Fe carries the opposite charge of Si
-const BADER_P = [0, 50, 100, 150, 200, 250, 300];
-const BADER_SI = [0.45, 0.85, 1.12, 1.4, 1.65, 1.75, 1.9];
+// FeI Bader charges (HSE), PNAS 2025 SI Fig. 8c: the sign of the charge on Fe flips near 150 GPa
+const Q_P = [0, 50, 100, 150, 200, 250, 300];
+const Q_FE = [0.31, 0.15, 0.05, -0.02, -0.065, -0.1, -0.22];
+const Q_I = [-0.3, -0.15, -0.045, 0.02, 0.07, 0.1, 0.22];
+// Fe–I band centers in eV, SI Fig. 9: compression pushes I 5p up past Fe 3d
+const E_P = [0, 50, 100, 200, 300];
+const E_FE3D = [0, -1.6, -1.9, -1.9, -2.7];
+const E_I5P = [-3.7, -2.8, -3.0, -0.3, -0.8];
 
-function baderSi(p) {
-  const q = Math.min(300, Math.max(0, p));
-  const k = Math.min(5, Math.floor(q / 50));
-  return BADER_SI[k] + (BADER_SI[k + 1] - BADER_SI[k]) * ((q - BADER_P[k]) / 50);
+function interp(xs, ys, x) {
+  const q = Math.min(xs[xs.length - 1], Math.max(xs[0], x));
+  let k = 0;
+  while (k < xs.length - 2 && q > xs[k + 1]) k++;
+  return ys[k] + (ys[k + 1] - ys[k]) * ((q - xs[k]) / (xs[k + 1] - xs[k]));
 }
 
-function FeSiScene({ gpa, face }) {
-  // CsCl-type (Pm-3m) FeSi: Fe on the cube corners, Si in the body center; the cell shrinks with pressure
-  const s = 150 * (1 - 0.14 * Math.min(1, gpa / 425));
+// one compression cycle: hold at 0, squeeze to 300 GPa, hold, release
+const CYCLE = 11000;
+function cyclePressure(t) {
+  const u = (t % CYCLE) / CYCLE;
+  const ease = (x) => 0.5 - 0.5 * Math.cos(Math.PI * x);
+  if (u < 0.1) return 0;
+  if (u < 0.5) return 300 * ease((u - 0.1) / 0.4);
+  if (u < 0.68) return 300;
+  if (u < 0.92) return 300 * (1 - ease((u - 0.68) / 0.24));
+  return 0;
+}
+
+function useCyclingPressure() {
+  const [p, setP] = useState(300);
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    let raf;
+    const t0 = performance.now();
+    const tick = (now) => {
+      setP(cyclePressure(now - t0));
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  return p;
+}
+
+function FeIScene() {
+  const p = useCyclingPressure();
+  const qFe = interp(Q_P, Q_FE, p);
+  const qI = interp(Q_P, Q_I, p);
+  const feGives = qFe > 0;
+  // Fe on the cube corners, I in the body center (CsCl-type FeI at 300 GPa); the cell shrinks as pressure rises
+  const s = 140 * (1 - 0.14 * (p / 300));
   const d = s * 0.4;
-  const cx = 165, cy = 150;
+  const cx = 140, cy = 165;
   const fx = cx - d / 2, fy = cy + d / 2;
   const front = [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([i, j]) => [fx + (i * s) / 2, fy + (j * s) / 2]);
   const back = front.map(([x, y]) => [x + d, y - d]);
   const edge = (pts) => pts.map(([x, y], k) => `${k ? "L" : "M"}${x},${y}`).join(" ") + " Z";
-  const pc = Math.min(300, gpa);
-  const qSi = baderSi(pc);
-  // mini chart of the paper's data
-  const X = (p) => 380 + (p / 300) * 190;
-  const Y = (q) => 150 - q * 42;
-  const line = (sign) => BADER_P.map((p, k) => `${k ? "L" : "M"}${X(p)},${Y(sign * BADER_SI[k])}`).join(" ");
+  const flow = Math.min(1, Math.abs(qFe) / 0.15);
+  const happy = faces[0], worried = faces[1];
+  const sgn = (q) => (q >= 0 ? `+${q.toFixed(2)}` : `−${Math.abs(q).toFixed(2)}`);
+  // energy levels
+  const EY = (e) => 90 - e * 34;
+  const e3d = interp(E_P, E_FE3D, p);
+  const e5p = interp(E_P, E_I5P, p);
+  // Bader chart
+  const X = (x) => 445 + (x / 300) * 135;
+  const Y = (q) => 150 - q * 190;
+  const path = (ys) => Q_P.map((x, k) => `${k ? "L" : "M"}${X(x)},${Y(ys[k])}`).join(" ");
   return (
-    <svg className="atom-row" viewBox="0 0 600 300" role="img" aria-label={`CsCl-type FeSi with charge flowing from Si to Fe; Fe Bader charge about ${(-qSi).toFixed(1)} at ${Math.round(pc)} GPa`}>
+    <svg className="atom-row" viewBox="0 0 600 300" role="img" aria-label="FeI under a compression cycle from 0 to 300 GPa: electrons flow from Fe to I at low pressure and reverse direction near 150 GPa">
+      <text x="14" y="24" className="svg-label">FeI · {Math.round(p)} GPa</text>
+      <text x="14" y="42" className="svg-mono">{feGives ? "Fe gives e⁻ (reductant)" : "Fe takes e⁻ (oxidant)"}</text>
+
       <path d={edge(back)} fill="none" stroke={INK} strokeWidth="1.2" opacity="0.4" />
       {front.map(([x, y], k) => <line key={k} x1={x} y1={y} x2={back[k][0]} y2={back[k][1]} stroke={INK} strokeWidth="1.2" opacity="0.4" />)}
-      {back.map(([x, y], k) => <circle key={k} cx={x} cy={y} r="15" fill="#FFA98F" stroke={INK} strokeWidth="1.8" opacity="0.7" />)}
-      <circle cx={cx} cy={cy} r="54" fill="#9DB0FF" opacity="0.18" />
-      <circle cx={cx} cy={cy} r="30" fill="#9DB0FF" stroke={INK} strokeWidth="2.2" />
-      {front.map(([x, y], k) => (
-        [0, 1].map((j) => (
-          <circle
-            key={`${k}-${j}`}
-            className="e-flow"
-            r="4.5"
-            fill="#F6D743"
-            stroke={INK}
-            strokeWidth="1.3"
-            style={{ offsetPath: `path("M${cx},${cy} L${x},${y}")`, animationDelay: `${k * 0.35 + j * 0.9}s` }}
-          />
-        ))
-      ))}
+      {back.map(([x, y], k) => <circle key={k} cx={x} cy={y} r="13" fill="#FFA98F" stroke={INK} strokeWidth="1.8" opacity="0.7" />)}
+      <circle cx={cx} cy={cy} r="30" fill="#C5A8FF" stroke={INK} strokeWidth="2.2" />
+      <g opacity={flow}>
+        {front.map(([x, y], k) => {
+          const d0 = feGives ? `M${x},${y} L${cx},${cy}` : `M${cx},${cy} L${x},${y}`;
+          return [0, 1].map((j) => (
+            <circle key={`${k}-${j}`} className="e-flow" r="4.5" fill="#F6D743" stroke={INK} strokeWidth="1.3"
+              style={{ offsetPath: `path("${d0}")`, animationDelay: `${k * 0.35 + j * 0.9}s` }} />
+          ));
+        })}
+      </g>
       <path d={edge(front)} fill="none" stroke={INK} strokeWidth="1.6" />
       {front.map(([x, y], k) => (
         <g key={k} transform={`translate(${x},${y})`}>
-          <circle r="22" fill="#FFA98F" stroke={INK} strokeWidth="2.2" />
-          <Face face={face} scale={0.55} />
+          <circle r="20" fill="#FFA98F" stroke={INK} strokeWidth="2.2" />
+          <Face face={feGives ? worried : happy} scale={0.5} />
         </g>
       ))}
-      <g transform={`translate(${cx},${cy})`}><Face face={face} scale={0.8} /></g>
-      <text x={front[3][0] - 28} y={front[3][1] - 30} textAnchor="end" className="svg-label">Fe δ−</text>
-      <text x={back[1][0] - 14} y={back[1][1] - 24} className="svg-label">Fe</text>
-      <text x={cx + 36} y={cy + 5} className="svg-label">Si δ+</text>
-      <text x="20" y="296" className="svg-mono">FeSi · CsCl-type (Pm3̄m) · Si → Fe</text>
+      <g transform={`translate(${cx},${cy})`}><Face face={feGives ? happy : worried} scale={0.8} /></g>
+      <text x={front[3][0] - 26} y={front[3][1] + 5} textAnchor="end" className="svg-label">Fe</text>
+      <text x={cx} y={cy + 50} textAnchor="middle" className="svg-label">I</text>
 
       <g>
-        <text x="380" y="46" className="svg-mono">Bader charge (HSE)</text>
-        <line x1="380" y1={Y(0)} x2="570" y2={Y(0)} stroke={INK} strokeWidth="1" opacity="0.35" />
-        <line x1="380" y1={Y(2.1)} x2="380" y2={Y(-2.1)} stroke={INK} strokeWidth="1.2" />
-        <line x1="380" y1={Y(-2.1)} x2="570" y2={Y(-2.1)} stroke={INK} strokeWidth="1.2" />
-        {[2, 0, -2].map((q) => <text key={q} x="372" y={Y(q) + 4} textAnchor="end" className="svg-mono">{q > 0 ? `+${q}` : q}</text>)}
-        {[0, 150, 300].map((p) => <text key={p} x={X(p)} y={Y(-2.1) + 16} textAnchor="middle" className="svg-mono">{p}</text>)}
-        <text x="475" y={Y(-2.1) + 32} textAnchor="middle" className="svg-mono">GPa</text>
-        <path d={line(1)} fill="none" stroke="#3F5BFF" strokeWidth="2" strokeDasharray="5 4" />
-        <path d={line(-1)} fill="none" stroke="#D8452B" strokeWidth="2" />
-        {BADER_P.map((p, k) => (
-          <g key={p}>
-            <circle cx={X(p)} cy={Y(BADER_SI[k])} r="3.2" fill="#3F5BFF" />
-            <rect x={X(p) - 3} y={Y(-BADER_SI[k]) - 3} width="6" height="6" fill="#D8452B" />
-          </g>
-        ))}
-        <line x1={X(pc)} y1={Y(2.1)} x2={X(pc)} y2={Y(-2.1)} stroke={INK} strokeWidth="1.2" strokeDasharray="3 3" />
-        <circle cx={X(pc)} cy={Y(qSi)} r="7" fill="#9DB0FF" stroke={INK} strokeWidth="1.8" />
-        <circle cx={X(pc)} cy={Y(-qSi)} r="7" fill="#FFA98F" stroke={INK} strokeWidth="1.8" />
-        <text x={X(pc) - 10} y={Y(qSi) - 12} textAnchor="end" className="svg-label">Si +{qSi.toFixed(1)}</text>
-        <text x={X(pc) - 10} y={Y(-qSi) - 12} textAnchor="end" className="svg-label">Fe −{qSi.toFixed(1)}</text>
+        <text x="290" y="46" className="svg-mono">band center</text>
+        <line x1="290" y1={EY(0.4)} x2="290" y2={EY(-4.2)} stroke={INK} strokeWidth="1.2" />
+        <text x="296" y={EY(-4.2) + 16} className="svg-mono">E</text>
+        <line x1="296" y1={EY(e3d)} x2="326" y2={EY(e3d)} stroke="#D8452B" strokeWidth="4" strokeLinecap="round" />
+        <line x1="296" y1={EY(e5p)} x2="326" y2={EY(e5p)} stroke="#7B4DFF" strokeWidth="4" strokeLinecap="round" />
+        <text x="331" y={EY(e3d) + 4} className="svg-mono">Fe 3d</text>
+        <text x="331" y={EY(e5p) + 4} className="svg-mono">I 5p</text>
       </g>
+
+      <g>
+        <text x="445" y="46" className="svg-mono">Bader charge</text>
+        <line x1="445" y1={Y(0)} x2="580" y2={Y(0)} stroke={INK} strokeWidth="1" opacity="0.35" />
+        <line x1="445" y1={Y(0.36)} x2="445" y2={Y(-0.36)} stroke={INK} strokeWidth="1.2" />
+        <line x1="445" y1={Y(-0.36)} x2="580" y2={Y(-0.36)} stroke={INK} strokeWidth="1.2" />
+        {[0.3, 0, -0.3].map((q) => <text key={q} x="438" y={Y(q) + 4} textAnchor="end" className="svg-mono">{q > 0 ? `+${q}` : q}</text>)}
+        {[0, 150, 300].map((x) => <text key={x} x={X(x)} y={Y(-0.36) + 16} textAnchor="middle" className="svg-mono">{x}</text>)}
+        <text x="512" y={Y(-0.36) + 32} textAnchor="middle" className="svg-mono">GPa</text>
+        <path d={path(Q_I)} fill="none" stroke="#7B4DFF" strokeWidth="2" strokeDasharray="5 4" />
+        <path d={path(Q_FE)} fill="none" stroke="#D8452B" strokeWidth="2" />
+        <line x1={X(p)} y1={Y(0.36)} x2={X(p)} y2={Y(-0.36)} stroke={INK} strokeWidth="1.2" strokeDasharray="3 3" />
+        <circle cx={X(p)} cy={Y(qI)} r="6.5" fill="#C5A8FF" stroke={INK} strokeWidth="1.8" />
+        <circle cx={X(p)} cy={Y(qFe)} r="6.5" fill="#FFA98F" stroke={INK} strokeWidth="1.8" />
+        <text x="445" y="272" className="svg-mono">Fe {sgn(qFe)} · I {sgn(qI)}</text>
+      </g>
+      <text x="14" y="296" className="svg-mono">FeI (CsCl-type at 300 GPa) · data: PNAS 2025 SI</text>
     </svg>
   );
 }
@@ -347,7 +390,7 @@ export default function PressureExplorer({ initialLevel = 0 }) {
       <div className="explorer-grid">
         <div className="stage" style={{ background: L.stage }}>
           {lvl === 0 ? <TmdScene />
-            : lvl === 2 ? <FeSiScene gpa={gpa} face={faces[2]} />
+            : lvl === 2 ? <FeIScene />
             : lvl === 3 ? <HydrogenScene gpa={gpa} face={faces[3]} />
             : <AtomRow lvl={lvl} sq={sq} />}
           <span className="pill mono">≈ {gpa} GPa · {L.mood}</span>
