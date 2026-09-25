@@ -39,32 +39,32 @@ export default function FunFactAtom() {
         <svg className="bob" viewBox="-170 -170 340 340" aria-hidden="true">
           <defs>
             <radialGradient id="mcloud">
-              <stop offset="0%" stopColor="#FFB3C9" stopOpacity="0.9" />
-              <stop offset="60%" stopColor="#FFD0DE" stopOpacity="0.55" />
-              <stop offset="100%" stopColor="#FFE0EA" stopOpacity="0" />
+              <stop offset="0%" stopColor="#9DE6F0" stopOpacity="0.9" />
+              <stop offset="60%" stopColor="#CFEFF6" stopOpacity="0.55" />
+              <stop offset="100%" stopColor="#DDF3F7" stopOpacity="0" />
             </radialGradient>
           </defs>
           <circle r="168" fill="url(#mcloud)" />
-          <circle r="128" fill="none" stroke="#E0457B" strokeWidth="1.5" strokeDasharray="3 6" opacity="0.6" />
+          <circle r="128" fill="none" stroke="#3F5BFF" strokeWidth="1.5" strokeDasharray="3 6" opacity="0.6" />
           <g className="orbit" style={{ animationDuration: "7s" }}>
             {ring(118, 4, 20).map(([x, y], i) => (
-              <circle key={i} cx={x} cy={y} r="8" fill="#FFD66B" stroke="#2D2440" strokeWidth="2" />
+              <circle key={i} cx={x} cy={y} r="8" fill="#7FDDEB" stroke="#1F1B4D" strokeWidth="2" />
             ))}
           </g>
           <g className="orbit-rev" style={{ animationDuration: "11s" }}>
             {ring(146, 6, 0).map(([x, y], i) => (
-              <circle key={i} cx={x} cy={y} r="6.5" fill="#8EE3C8" stroke="#2D2440" strokeWidth="2" />
+              <circle key={i} cx={x} cy={y} r="6.5" fill="#9DB0FF" stroke="#1F1B4D" strokeWidth="2" />
             ))}
           </g>
-          <circle r="88" fill="#FF8FB1" stroke="#2D2440" strokeWidth="4" />
+          <circle r="88" fill="#F6D743" stroke="#1F1B4D" strokeWidth="4" />
           <ellipse cx="-30" cy="-40" rx="22" ry="12" fill="#FFFFFF" opacity="0.55" transform="rotate(-30 -30 -40)" />
-          <circle cx="-28" cy="-6" r="9" fill="#2D2440" />
-          <circle cx="28" cy="-6" r="9" fill="#2D2440" />
+          <circle cx="-28" cy="-6" r="9" fill="#1F1B4D" />
+          <circle cx="28" cy="-6" r="9" fill="#1F1B4D" />
           <circle cx="-25" cy="-9" r="3" fill="#FFFFFF" />
           <circle cx="31" cy="-9" r="3" fill="#FFFFFF" />
-          <ellipse cx="-48" cy="18" rx="13" ry="7" fill="#E0457B" opacity="0.45" />
-          <ellipse cx="48" cy="18" rx="13" ry="7" fill="#E0457B" opacity="0.45" />
-          <path d={mouths[fact]} fill="#2D2440" stroke="#2D2440" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+          <ellipse cx="-48" cy="18" rx="13" ry="7" fill="#D8452B" opacity="0.45" />
+          <ellipse cx="48" cy="18" rx="13" ry="7" fill="#D8452B" opacity="0.45" />
+          <path d={mouths[fact]} fill="#1F1B4D" stroke="#1F1B4D" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
       <span className="mono muted small">(click the atom for another fact)</span>

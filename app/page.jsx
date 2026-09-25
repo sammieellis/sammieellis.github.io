@@ -7,16 +7,16 @@ const EMAIL = "mailto:samantha.scott.309@my.csun.edu";
 const CV = "/Samantha_Ellis_CV.pdf";
 
 const navTiles = [
-  { n: 1, sym: "Rs", label: "Research", href: "#research", color: "#8EE3C8" },
-  { n: 2, sym: "Pb", label: "Publications", href: "#publications", color: "#C9B8FF" },
-  { n: 3, sym: "Pr", label: "Presentations", href: "#presentations", color: "#FFD66B" },
-  { n: 4, sym: "Te", label: "Teaching", href: "#teaching", color: "#FFB3C9" },
-  { n: 5, sym: "Nw", label: "News", href: "#news", color: "#A8DBFF" },
+  { n: 1, sym: "Rs", label: "Research", href: "#research", color: "#7FD9A0" },
+  { n: 2, sym: "Pb", label: "Publications", href: "#publications", color: "#9DB0FF" },
+  { n: 3, sym: "Pr", label: "Presentations", href: "#presentations", color: "#F6D743" },
+  { n: 4, sym: "Te", label: "Teaching", href: "#teaching", color: "#FFB8A6" },
+  { n: 5, sym: "Nw", label: "News", href: "#news", color: "#7FDDEB" },
 ];
 
 const publications = [
   {
-    year: "2026", venue: "J. Materials Informatics 6, 45", color: "#E8E1FF", tape: "#FFD66B", tilt: -1.5,
+    year: "2026", venue: "J. Materials Informatics 6, 45", color: "#E3E8FF", tape: "#F6D743", tilt: -1.5,
     title: "Prediction of Electron Localization Functions from Superposed Atomic Densities for Accelerated Superhydride Discovery",
     authors: <>A. Ellis, <strong>S. Ellis</strong>, and M. Miao</>,
     href: "https://www.oaepublish.com/articles/jmi.2026.44",
@@ -25,7 +25,7 @@ const publications = [
     credit: "Journal of Materials Informatics, Fig. 4",
   },
   {
-    year: "2026", venue: "J. Phys. Chem. Lett.", color: "#D9F5EA", tape: "#FF8FB1", tilt: 1,
+    year: "2026", venue: "J. Phys. Chem. Lett.", color: "#DDF5E4", tape: "#FF9A80", tilt: 1,
     title: "Emerging Electride Behavior and Metallization in Molecular Hydrogen under High Pressure",
     authors: <>A. Ellis, <strong>S. Ellis</strong>, A. Pandit, and M. Miao</>,
     href: "https://doi.org/10.1021/acs.jpclett.6c01415",
@@ -34,7 +34,7 @@ const publications = [
     credit: "ACS Supporting Information, Fig. S2",
   },
   {
-    year: "2025", venue: "PNAS 122, e2414911122", color: "#FFE3DA", tape: "#8EE3C8", tilt: -0.8,
+    year: "2025", venue: "PNAS 122, e2414911122", color: "#FFE1D8", tape: "#7FD9A0", tilt: -0.8,
     title: "Pressure-Induced Redox Reversal of Iron and the Distribution of Elements in Deep Earth",
     authors: <>X. Wang, X. Feng, J. Li, Y. Lv, A. Ellis, <strong>S. Scott</strong>, et al.</>,
     href: "https://doi.org/10.1073/pnas.2414911122",
@@ -46,21 +46,21 @@ const publications = [
 
 const presentations = [
   {
-    kind: "Poster", color: "#8EE3C8", tilt: -1, button: "View poster",
+    kind: "Poster", color: "#7FD9A0", tilt: -1, button: "View poster",
     date: "AUG 2026 · KNOXVILLE, TN", venue: "2026 CNMS User Meeting",
     title: "Modeling Gas-Assisted Etching of MoS₂ and WS₂ with Machine-Learned Interatomic Potentials",
     pdf: "/CNMS_2026_TMD_Etching_Poster.pdf", preview: "/CNMS_2026_TMD_Etching_Poster_preview.png",
     alt: "Preview of the 2026 CNMS User Meeting TMD etching poster",
   },
   {
-    kind: "Talk", color: "#FFB39A", tilt: 0.8, button: "View slides",
+    kind: "Talk", color: "#FFA98F", tilt: 0.8, button: "View slides",
     date: "MAR 2026 · DENVER, CO", venue: "APS Global Physics Summit",
     title: "Pressure-Induced Redox Reversal of Iron and the Distribution of Elements in Deep Earth",
     pdf: "/APS_2026_Fe_Redox_Talk.pdf", preview: "/APS_2026_Fe_Redox_Talk_preview.png",
     alt: "Preview of the APS 2026 iron redox talk",
   },
   {
-    kind: "Poster", color: "#FFD66B", tilt: -0.6, button: "View poster",
+    kind: "Poster", color: "#F6D743", tilt: -0.6, button: "View poster",
     date: "MAR 2025 · ANAHEIM, CA", venue: "APS Global Physics Summit",
     title: "Insulator-to-Metal Transition of Molecular Hydrogen Under Pressure",
     pdf: "/APS_2025_Molecular_Hydrogen_Poster.pdf", preview: "/APS_2025_Molecular_Hydrogen_Poster_preview.png",
@@ -69,18 +69,18 @@ const presentations = [
 ];
 
 const roles = [
-  { badge: "TA", color: "#8EE3C8", title: "Teaching Assistant", meta: "General & Organic Chemistry Labs · CSUN",
+  { badge: "TA", color: "#7FD9A0", title: "Teaching Assistant", meta: "General & Organic Chemistry Labs · CSUN",
     text: "I taught six laboratory sections across general and organic chemistry, combining pre-lab instruction with hands-on guidance in quantitative analysis, spectroscopy, scientific documentation, and lab safety." },
-  { badge: "Pm", color: "#C9B8FF", title: "Graduate Peer Mentor", meta: "Office of Undergraduate Research · CSUN",
+  { badge: "Pm", color: "#9DB0FF", title: "Graduate Peer Mentor", meta: "Office of Undergraduate Research · CSUN",
     text: "I led workshops and individual advising for students joining research groups, preparing conference materials, applying to graduate programs, and developing CVs and personal statements. I also supported campus outreach events connecting prospective and high-school students with research opportunities." },
-  { badge: "Jc", color: "#FFD66B", title: "Journal Club co-founder", meta: "Chemistry & Biochemistry Journal Club · CSUN",
+  { badge: "Jc", color: "#F6D743", title: "Journal Club co-founder", meta: "Chemistry & Biochemistry Journal Club · CSUN",
     text: "A monthly, student-led forum for reading current chemical literature: a low-pressure place to practice presenting papers, ask technical questions, and trade feedback." },
 ];
 
 const quotes = [
   { text: "Explains concepts in an efficient but also easy to understand way.", who: "General Chemistry II Lab student", color: "#FFFFFF", side: "left" },
-  { text: "Sammie was very kind and patient and really easy to talk to throughout the semester.", who: "General Chemistry II Lab student", color: "#D9F5EA", side: "right" },
-  { text: "She does want us to figure out things before we go to her, which I appreciate.", who: "Organic Chemistry I Lab student", color: "#FFF3C4", side: "left" },
+  { text: "Sammie was very kind and patient and really easy to talk to throughout the semester.", who: "General Chemistry II Lab student", color: "#DDF5E4", side: "right" },
+  { text: "She does want us to figure out things before we go to her, which I appreciate.", who: "Organic Chemistry I Lab student", color: "#FFF4BF", side: "left" },
 ];
 
 const photos = [
@@ -94,7 +94,7 @@ const photos = [
 const news = [
   { href: "https://newsroom.csun.edu/2026/05/14/grad-student-and-undergrad-win-national-science-foundation-research-fellowship/",
     img: "/csun-newsroom-grfp.jpg", alt: "Samantha Ellis standing beside her computational materials research poster",
-    meta: "MAY 2026 · CSUN NEWSROOM", title: "Graduate researchers receive National Science Foundation fellowships", isNew: true, color: "#FFF3C4" },
+    meta: "MAY 2026 · CSUN NEWSROOM", title: "Graduate researchers receive National Science Foundation fellowships", isNew: true, color: "#FFF4BF" },
   { href: "https://newsroom.csun.edu/2025/11/18/study-by-csun-prof-upends-understanding-of-what-happens-to-iron-at-earths-core/",
     img: "/csun-newsroom-iron-core.jpg", alt: "Illustration of Earth and its core accompanying a CSUN Newsroom article about iron under pressure",
     meta: "NOV 2025 · CSUN NEWSROOM", title: "Study by CSUN Prof Upends Understanding of What Happens to Iron at Earth’s Core", color: "#FFFFFF" },
@@ -106,7 +106,7 @@ const news = [
 function Sparkle({ className, style }) {
   return (
     <svg className={`sparkle ${className || ""}`} style={style} viewBox="-12 -12 24 24" aria-hidden="true">
-      <path d="M0,-11 l3,8 l8,3 l-8,3 l-3,8 l-3,-8 l-8,-3 l8,-3 z" fill="#FFD66B" stroke="#2D2440" strokeWidth="1.5" />
+      <path d="M0,-11 l3,8 l8,3 l-8,3 l-3,8 l-3,-8 l-8,-3 l8,-3 z" fill="#F6D743" stroke="#1F1B4D" strokeWidth="1.5" />
     </svg>
   );
 }
@@ -126,13 +126,13 @@ export default function Page() {
         <a className="brand" href="#top">
           <svg width="44" height="44" viewBox="-30 -30 60 60" aria-hidden="true">
             <g className="orbit" style={{ animationDuration: "5s" }}>
-              <circle cx="24" cy="0" r="3.5" fill="#FFD66B" stroke="#2D2440" strokeWidth="1.2" />
-              <circle cx="-24" cy="0" r="3.5" fill="#FFD66B" stroke="#2D2440" strokeWidth="1.2" />
+              <circle cx="24" cy="0" r="3.5" fill="#F6D743" stroke="#1F1B4D" strokeWidth="1.2" />
+              <circle cx="-24" cy="0" r="3.5" fill="#F6D743" stroke="#1F1B4D" strokeWidth="1.2" />
             </g>
-            <circle r="14" fill="#FF8FB1" stroke="#2D2440" strokeWidth="2" />
-            <circle cx="-5" cy="-2" r="2" fill="#2D2440" />
-            <circle cx="5" cy="-2" r="2" fill="#2D2440" />
-            <path d="M-4,4 Q0,8 4,4" fill="none" stroke="#2D2440" strokeWidth="1.6" strokeLinecap="round" />
+            <circle r="14" fill="#F6D743" stroke="#1F1B4D" strokeWidth="2" />
+            <circle cx="-5" cy="-2" r="2" fill="#1F1B4D" />
+            <circle cx="5" cy="-2" r="2" fill="#1F1B4D" />
+            <path d="M-4,4 Q0,8 4,4" fill="none" stroke="#1F1B4D" strokeWidth="1.6" strokeLinecap="round" />
           </svg>
           <span>Samantha Ellis</span>
         </a>
@@ -184,7 +184,7 @@ export default function Page() {
         <section id="research" className="panel squeeze">
           <div className="section-head">
             <div>
-              <span className="eyebrow">MY RESEARCH · INTERACTIVE</span>
+              <span className="elfbar" aria-hidden="true" /><span className="eyebrow">MY RESEARCH · INTERACTIVE</span>
               <h2>Squeeze the atoms!</h2>
             </div>
             <p>Drag the slider from 0 GPa (everyday pressure) up to the millions of atmospheres where even hydrogen changes character. Each stop is one of my projects.</p>
@@ -195,15 +195,14 @@ export default function Page() {
         <section id="publications" className="wrap section">
           <div className="section-head">
             <div>
-              <span className="eyebrow">PEER-REVIEWED PAPERS · CLICK A CARD TO READ</span>
+              <span className="elfbar" aria-hidden="true" /><span className="eyebrow">PEER-REVIEWED PAPERS · CLICK A CARD TO READ</span>
               <h2>Publications</h2>
             </div>
             <a className="underline-link" href={SCHOLAR} target="_blank" rel="noreferrer">Everything on Google Scholar ↗</a>
           </div>
           <div className="card-grid">
             {publications.map((p) => (
-              <a key={p.title} className="card wiggle" href={p.href} target="_blank" rel="noreferrer" style={{ background: p.color, "--tilt": `${p.tilt}deg` }}>
-                <span className="tape" style={{ background: p.tape }} aria-hidden="true" />
+              <a key={p.title} className="card wiggle" href={p.href} target="_blank" rel="noreferrer" style={{ background: p.color }}>
                 <figure className="thumb">
                   <img src={p.preview} alt={p.alt} loading="lazy" />
                   <figcaption>{p.credit}</figcaption>
@@ -221,13 +220,13 @@ export default function Page() {
         <section id="presentations" className="wrap section">
           <div className="section-head">
             <div>
-              <span className="eyebrow">TALKS &amp; POSTERS · SLIDES AND POSTERS OPEN AS PDFs</span>
+              <span className="elfbar" aria-hidden="true" /><span className="eyebrow">TALKS &amp; POSTERS · SLIDES AND POSTERS OPEN AS PDFs</span>
               <h2>Presentations</h2>
             </div>
           </div>
           <div className="card-grid">
             {presentations.map((p) => (
-              <a key={p.pdf} className="card wiggle pres" href={p.pdf} target="_blank" rel="noreferrer" style={{ "--tilt": `${p.tilt}deg` }}>
+              <a key={p.pdf} className="card wiggle pres" href={p.pdf} target="_blank" rel="noreferrer">
                 <div className="pres-thumb">
                   <img src={p.preview} alt={p.alt} loading="lazy" />
                   <span className="kind" style={{ background: p.color }}>{p.kind}</span>
@@ -245,7 +244,7 @@ export default function Page() {
         <section id="teaching" className="panel teaching">
           <div className="teaching-grid">
             <div className="teaching-copy">
-              <span className="eyebrow">TEACHING · MENTORING · SERVICE</span>
+              <span className="elfbar" aria-hidden="true" /><span className="eyebrow">TEACHING · MENTORING · SERVICE</span>
               <h2>Your path can be nonlinear and still lead somewhere meaningful.</h2>
               <p>
                 As a first-generation college student, I know how much a good mentor matters. I try to be that for others: I challenge students to grow, help them work through uncertainty, and remind them they don’t need everything figured out.
@@ -291,7 +290,7 @@ export default function Page() {
           <div className="news-list">
             <h2>In the news</h2>
             {news.map((n) => (
-              <a key={n.href} className="news-card wiggle" href={n.href} target="_blank" rel="noreferrer" style={{ background: n.color, "--tilt": "0deg" }}>
+              <a key={n.href} className="news-card wiggle" href={n.href} target="_blank" rel="noreferrer" style={{ background: n.color }}>
                 <img src={n.img} alt={n.alt} loading="lazy" />
                 <span className="news-text">
                   <span className="mono small muted">{n.isNew && <span className="new">NEW!</span>}{n.meta}</span>
@@ -306,11 +305,11 @@ export default function Page() {
       <footer className="footer">
         <div className="footer-left">
           <svg width="80" height="80" viewBox="-45 -45 90 90" aria-hidden="true">
-            <circle r="32" fill="#FFD66B" stroke="#FFF7EC" strokeWidth="3" />
-            <path d="M-15,-6 q4,-6 8,0 M7,-6 q4,-6 8,0" fill="none" stroke="#2D2440" strokeWidth="3" strokeLinecap="round" />
-            <path d="M-10,8 Q0,18 10,8" fill="#2D2440" stroke="#2D2440" strokeWidth="3" strokeLinejoin="round" />
-            <ellipse cx="-19" cy="6" rx="5" ry="3" fill="#E0457B" opacity="0.5" />
-            <ellipse cx="19" cy="6" rx="5" ry="3" fill="#E0457B" opacity="0.5" />
+            <circle r="32" fill="#F6D743" stroke="#F6F5FB" strokeWidth="3" />
+            <path d="M-15,-6 q4,-6 8,0 M7,-6 q4,-6 8,0" fill="none" stroke="#1F1B4D" strokeWidth="3" strokeLinecap="round" />
+            <path d="M-10,8 Q0,18 10,8" fill="#1F1B4D" stroke="#1F1B4D" strokeWidth="3" strokeLinejoin="round" />
+            <ellipse cx="-19" cy="6" rx="5" ry="3" fill="#D8452B" opacity="0.5" />
+            <ellipse cx="19" cy="6" rx="5" ry="3" fill="#D8452B" opacity="0.5" />
           </svg>
           <div>
             <p className="footer-title">Let’s bond!</p>
