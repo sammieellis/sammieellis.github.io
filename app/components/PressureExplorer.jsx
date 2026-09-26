@@ -30,8 +30,8 @@ const LEVELS = [
     tags: ["CALYPSO", "ternary convex hulls", "FEFF XANES", "Bader charge"],
   },
   {
-    name: "Earth’s core", gpa: "up to 350 GPa", mood: "FeSi (1:1), charge transfer from Si to Fe", stage: "#FFE1D6", card: "#FFE1D8",
-    atoms: [["Si", "#9DB0FF", 0.8, 0, "donates e⁻ →"], ["Fe", "#FFA98F", 1.3, 0, "accepts e⁻"]],
+    name: "Earth’s core", gpa: "up to 350 GPa", mood: "FeI at core pressure, charge flows from I to Fe", stage: "#FFE1D6", card: "#FFE1D8",
+    atoms: [["I", "#C5A8FF", 1.3, 0, "donates e⁻ →"], ["Fe", "#FFA98F", 1.3, 0, "accepts e⁻"]],
     where: "PNAS · 2025",
     title: "Iron switches sides",
     body: "Under ambient conditions, iron acts as an electron donor. At core pressures of up to ~350 GPa, its compact 3d states drop in energy relative to the np states of p-block elements, and iron becomes an electron acceptor. I built HSE convex hulls and Bader charge analyses across Fe–p-block systems. The elements that bond most strongly to iron at core conditions turn out to be the least depleted from the mantle, which points to volatile loss during Earth’s accretion rather than sequestration in the core.",
@@ -87,7 +87,7 @@ function Atom({ a, i, n, lvl, x, sq, face, S }) {
   const ecol = isCs ? "#3F5BFF" : "#F6D743";
   const esz = isCs ? 6 : 4.5;
   const half = 75 + sq[2];
-  const flow = lvl === 2 && sym === "Si";
+  const flow = lvl === 2 && sym === "I";
   return (
     <g transform={`translate(${x},100)`}>
       <g transform={`scale(${S})`}>
