@@ -3,9 +3,9 @@
 import { useState } from "react";
 
 const facts = [
-  "At Earth’s-core pressures, iron switches from electron donor to electron acceptor, drawing charge from elements such as silicon and sulfur.",
+  "Iron usually gives electrons away, but squeeze it hard enough and it starts taking them. In iron iodide, the charge on iron flips from positive to negative near 150 GPa.",
   "Cesium’s 5p electrons belong to its core and normally stay out of chemistry. Under pressure they can form chemical bonds, and my thesis looks for a compound where experiments can observe this.",
-  "As molecular hydrogen approaches metallization under pressure, it shows electride-like behavior, with electrons moving into interstitial sites between H₂ molecules.",
+  "When molecular hydrogen turns metallic under pressure, the H₂ molecules stay intact and electrons move into the empty spaces between them, much like in an electride.",
   "Our ELFNet model predicts electron localization functions about 350× faster than DFT, helping identify metal frameworks that could host superhydrides.",
   "Quantum-accurate simulations usually reach only picoseconds on small cells. I fine-tune a machine-learned potential on them so it can run for nanoseconds on much larger systems.",
 ];
