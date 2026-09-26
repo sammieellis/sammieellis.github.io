@@ -1,4 +1,5 @@
 import FunFactAtom from "./components/FunFactAtom";
+import Carousel from "./components/Carousel";
 import PressureExplorer from "./components/PressureExplorer";
 
 const SCHOLAR = "https://scholar.google.com/citations?user=3hrvXUYAAAAJ&hl=en";
@@ -45,6 +46,13 @@ const publications = [
 ];
 
 const presentations = [
+  {
+    kind: "Seminar", color: "#9DB0FF", tilt: 0.6, button: "View slides",
+    date: "SEP 2026 · NORTHRIDGE, CA", venue: "CSUN Literature Seminar",
+    title: "Advancements in Atomic-Scale Control of MoS₂ Etching: Fluorination and Oxidation",
+    pdf: "/CSUN_2026_Lit_Seminar.pdf", preview: "/CSUN_2026_Lit_Seminar_preview.png",
+    alt: "Title slide of the 2026 CSUN literature seminar on MoS₂ etching",
+  },
   {
     kind: "Poster", color: "#7FD9A0", tilt: -1, button: "View poster",
     date: "AUG 2026 · KNOXVILLE, TN", venue: "2026 CNMS User Meeting",
@@ -213,13 +221,15 @@ export default function Page() {
         </section>
 
         <section id="presentations" className="wrap section">
-          <div className="section-head">
-            <div>
-              <span className="elfbar" aria-hidden="true" /><span className="eyebrow">TALKS &amp; POSTERS · SLIDES AND POSTERS OPEN AS PDFs</span>
-              <h2>Presentations</h2>
-            </div>
-          </div>
-          <div className="card-grid">
+          <Carousel
+            label="presentations"
+            head={
+              <div>
+                <span className="elfbar" aria-hidden="true" /><span className="eyebrow">TALKS &amp; POSTERS · SLIDES AND POSTERS OPEN AS PDFs</span>
+                <h2>Presentations</h2>
+              </div>
+            }
+          >
             {presentations.map((p) => (
               <a key={p.pdf} className="card wiggle pres" href={p.pdf} target="_blank" rel="noreferrer">
                 <div className="pres-thumb">
@@ -233,7 +243,7 @@ export default function Page() {
                 <span className="chip-btn" style={{ background: p.color }}><DocIcon />{p.button}</span>
               </a>
             ))}
-          </div>
+          </Carousel>
         </section>
 
         <section id="teaching" className="panel teaching">
