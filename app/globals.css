@@ -134,7 +134,6 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
 .stop.active { background: var(--ink); color: var(--cream); }
 
 /* ---------- cards ---------- */
-.card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; padding-top: 10px; }
 .card { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 20px 20px 22px; background: #FFFFFF; border: 1.5px solid var(--ink); border-radius: 22px; text-decoration: none; }
 .wiggle { transition: transform .25s ease, box-shadow .25s ease; }
 .wiggle:hover { transform: translateY(-5px); box-shadow: var(--shadow); color: var(--ink); }
@@ -147,7 +146,8 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
 .chip-btn { align-self: flex-start; margin-top: auto; display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; background: #FFFFFF; border: 1.5px solid var(--ink); border-radius: 999px; font-family: var(--display); font-weight: 600; font-size: 15px; }
 .note { margin-top: 28px; font-size: 15px; color: var(--muted); }
 /* presentations carousel */
-.section-head > .carousel-arrows { display: flex; flex-direction: row; gap: 10px; flex-shrink: 0; }
+.section-head > .carousel-side { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 18px; flex-shrink: 0; }
+.carousel-arrows { display: flex; gap: 10px; }
 .arrow-btn { width: 52px; height: 52px; border: 1.5px solid var(--ink); border-radius: 50%; background: #FFFFFF; color: var(--ink); font-size: 22px; line-height: 1; cursor: pointer; transition: transform .2s ease, background .2s ease; }
 .arrow-btn:hover:not(:disabled) { background: var(--butter); transform: translateY(-2px); }
 .arrow-btn:disabled { opacity: .3; cursor: default; }
@@ -181,6 +181,7 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
 .bubble-right { align-self: flex-end; border-radius: 26px 26px 6px 26px; }
 .photo-strip { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 22px; margin-top: 48px; }
 .photo-strip .polaroid img { aspect-ratio: 1 / 1; }
+.swipe-hint { display: none; }
 .polaroid { margin: 0; padding: 10px 10px 14px; background: #FFFFFF; border: 1.5px solid var(--ink); box-shadow: var(--shadow); transform: rotate(var(--tilt, 0deg)); transition: transform .25s ease; }
 .polaroid:hover { transform: rotate(0deg) scale(1.03); }
 .polaroid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
@@ -218,7 +219,6 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
   .tile-label { font-size: 15px; }
   .wrap { padding-left: 28px; padding-right: 28px; }
   .panel { padding: 44px 32px; }
-  .card-grid { gap: 22px; }
   .card-title { font-size: 18px; }
   .hero { gap: 24px; }
   .news { grid-template-columns: 280px minmax(0, 1fr); gap: 40px; }
@@ -236,7 +236,6 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
   .panel { padding: 36px 20px; border-radius: 28px; }
   .squeeze, .teaching { margin-left: 12px; margin-right: 12px; }
   .section-head { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .card-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .stage { min-height: 300px; }
   .stops { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project-card { padding: 24px; }
@@ -285,6 +284,10 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
   .pressure-controls input::-moz-range-thumb { width: 28px; height: 28px; }
   .section-head h2 { font-size: 38px; }
   .carousel-track { grid-auto-columns: 84%; gap: 16px; }
+  .swipe-hint { display: block; margin-top: 40px; }
+  .photo-strip { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 64%; gap: 18px; margin-top: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 12px 8px 20px; scrollbar-width: none; }
+  .photo-strip::-webkit-scrollbar { display: none; }
+  .photo-strip > .polaroid { scroll-snap-align: center; }
   .arrow-btn { width: 46px; height: 46px; }
   .underline-link { display: inline-block; padding: 10px 0; }
   .scale-labels, .stop .mono, .thumb figcaption { font-size: 12px; }

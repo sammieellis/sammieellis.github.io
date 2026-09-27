@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 
 // Horizontal card row with previous/next arrows; also scrolls by swipe or trackpad.
-export default function Carousel({ head, label, children }) {
+// The arrows only appear once there are more cards than fit on screen.
+export default function Carousel({ head, actions, label, children }) {
   const track = useRef(null);
   const [canPrev, setCanPrev] = useState(false);
-  const [canNext, setCanNext] = useState(true);
+  const [canNext, setCanNext] = useState(false);
 
   useEffect(() => {
     const el = track.current;
@@ -35,9 +36,14 @@ export default function Carousel({ head, label, children }) {
     <>
       <div className="section-head">
         {head}
-        <div className="carousel-arrows">
-          <button type="button" className="arrow-btn" onClick={() => step(-1)} disabled={!canPrev} aria-label={`Previous ${label}`}>←</button>
-          <button type="button" className="arrow-btn" onClick={() => step(1)} disabled={!canNext} aria-label={`Next ${label}`}>→</button>
+        <div className="carousel-side">
+          {actions}
+          {(canPrev || canNext) && (
+            <div className="carousel-arrows">
+              <button type="button" className="arrow-btn" onClick={() => step(-1)} disabled={!canPrev} aria-label={`Previous ${label}`}>←</button>
+              <button type="button" className="arrow-btn" onClick={() => step(1)} disabled={!canNext} aria-label={`Next ${label}`}>→</button>
+            </div>
+          )}
         </div>
       </div>
       <div className="carousel-track" ref={track} role="region" aria-label={label} tabIndex={0}>

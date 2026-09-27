@@ -164,7 +164,7 @@ export default function Page() {
             <div className="badges">
               <span className="badge badge-yellow">NSF Graduate Research Fellow</span>
               <span className="badge">M.S. Chemistry · CSUN</span>
-              <span className="badge">Oak Ridge National Lab</span>
+              <span className="badge">Intern · Oak Ridge National Lab</span>
             </div>
             <h1>Samantha <span className="pink">Ellis</span></h1>
             <p className="lead">
@@ -196,14 +196,16 @@ export default function Page() {
         </section>
 
         <section id="publications" className="wrap section">
-          <div className="section-head">
-            <div>
-              <span className="elfbar" aria-hidden="true" /><span className="eyebrow">PEER-REVIEWED PAPERS · CLICK A CARD TO READ</span>
-              <h2>Publications</h2>
-            </div>
-            <a className="underline-link" href={SCHOLAR} target="_blank" rel="noreferrer">Everything on Google Scholar ↗</a>
-          </div>
-          <div className="card-grid">
+          <Carousel
+            label="publications"
+            head={
+              <div>
+                <span className="elfbar" aria-hidden="true" /><span className="eyebrow">PEER-REVIEWED PAPERS · CLICK A CARD TO READ</span>
+                <h2>Publications</h2>
+              </div>
+            }
+            actions={<a className="underline-link" href={SCHOLAR} target="_blank" rel="noreferrer">Everything on Google Scholar ↗</a>}
+          >
             {publications.map((p) => (
               <a key={p.title} className="card wiggle" href={p.href} target="_blank" rel="noreferrer" style={{ background: p.color }}>
                 <figure className="thumb">
@@ -216,7 +218,7 @@ export default function Page() {
                 <span className="chip-btn">Read the paper ↗</span>
               </a>
             ))}
-          </div>
+          </Carousel>
           <p className="note">Earlier work may appear under <strong>Samantha Scott</strong>.</p>
         </section>
 
@@ -276,7 +278,8 @@ export default function Page() {
               ))}
             </div>
           </div>
-          <div className="photo-strip">
+          <span className="swipe-hint mono small muted" aria-hidden="true">swipe for more photos →</span>
+          <div className="photo-strip" role="region" aria-label="Teaching and outreach photos" tabIndex={0}>
             {photos.map((ph) => (
               <figure key={ph.src} className="polaroid" style={{ "--tilt": `${ph.tilt}deg` }}>
                 <img src={ph.src} alt={ph.alt} loading="lazy" />
