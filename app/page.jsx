@@ -164,7 +164,7 @@ export default function Page() {
             <div className="badges">
               <span className="badge badge-yellow">NSF Graduate Research Fellow</span>
               <span className="badge">M.S. Chemistry · CSUN</span>
-              <span className="badge">Oak Ridge National Lab</span>
+              <span className="badge">Intern · Oak Ridge National Lab</span>
             </div>
             <h1>Samantha <span className="pink">Ellis</span></h1>
             <p className="lead">
