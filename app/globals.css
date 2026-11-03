@@ -247,7 +247,7 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
   .photo-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
   .news { gap: 40px; }
   .polaroid.big { max-width: 210px; }
-  .news > .polaroid { margin-top: 0; }
+  .news > .polaroid { margin-top: 0; justify-self: center; }
   .news-card img { width: 88px; height: 70px; }
   .news-title { font-size: 18px; }
   .footer { padding: 40px 20px 24px; }
