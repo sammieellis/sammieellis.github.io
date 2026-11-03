@@ -196,6 +196,7 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
 .news-list h2 { font-size: clamp(40px, 5vw, 56px); }
 .news-card { display: flex; gap: 18px; align-items: center; padding: 14px; border: 1.5px solid var(--ink); border-radius: 22px; text-decoration: none; }
 .news-card img { width: 120px; height: 90px; object-fit: cover; border-radius: 12px; border: 1.5px solid var(--ink); flex-shrink: 0; }
+.news-card img.portrait { width: 76px; height: 108px; margin: 0 22px; border-radius: 6px; }
 .news-text { display: flex; flex-direction: column; gap: 4px; }
 .news-title { font-family: var(--display); font-weight: 500; font-size: 21px; line-height: 1.25; }
 .new { display: inline-block; margin-right: 8px; padding: 1px 8px; background: var(--pink); border: 1.5px solid var(--ink); border-radius: 8px; font-family: var(--display); font-weight: 600; color: var(--ink); }
@@ -244,6 +245,7 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
   .news { gap: 40px; }
   .polaroid.big { max-width: 340px; }
   .news-card img { width: 88px; height: 70px; }
+  .news-card img.portrait { width: 56px; height: 80px; margin: 0 16px; }
   .news-title { font-size: 18px; }
   .footer { padding: 40px 20px 24px; }
   .footer-title { font-size: 34px; }
