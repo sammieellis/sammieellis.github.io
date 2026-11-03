@@ -100,6 +100,10 @@ const photos = [
 ];
 
 const news = [
+  { href: "https://www.oaepublish.com/volumes/jmi.2052",
+    img: "/jmi-cover-2026-sep.jpg", portrait: true,
+    alt: "Cover of Journal of Materials Informatics, Volume 6, Issue 3, September 2026, featuring the ELFNet paper by Austin Ellis, Samantha Ellis and Maosheng Miao",
+    meta: "SEP 2026 · JOURNAL OF MATERIALS INFORMATICS", title: "Our ELFNet paper is featured on the cover of Journal of Materials Informatics", isNew: true, color: "#FFF4BF" },
   { href: "https://newsroom.csun.edu/2026/05/14/grad-student-and-undergrad-win-national-science-foundation-research-fellowship/",
     img: "/csun-newsroom-grfp.jpg", alt: "Samantha Ellis standing beside her computational materials research poster",
     meta: "MAY 2026 · CSUN NEWSROOM", title: "Graduate researchers receive National Science Foundation fellowships", isNew: true, color: "#FFF4BF" },
@@ -107,7 +111,7 @@ const news = [
     img: "/csun-newsroom-iron-core.jpg", alt: "Illustration of Earth and its core accompanying a CSUN Newsroom article about iron under pressure",
     meta: "NOV 2025 · CSUN NEWSROOM", title: "Study by CSUN Prof Upends Understanding of What Happens to Iron at Earth’s Core", color: "#FFFFFF" },
   { href: "https://t.e2ma.net/webview/it10xk/de0c2a38558e5a239902e187dd02712e",
-    img: "/our-admitted-matadors-day.jpeg", alt: "Office of Undergraduate Research newsletter preview featuring Admitted Matadors Day",
+    img: "/our-admitted-matadors-day-photo.jpg", alt: "Samantha Ellis sharing undergraduate research resources with prospective students at CSUN’s Admitted Matadors Day",
     meta: "OFFICE OF UNDERGRADUATE RESEARCH NEWSLETTER", title: "Graduate peer mentoring and undergraduate research outreach", color: "#FFFFFF" },
 ];
 
@@ -298,7 +302,7 @@ export default function Page() {
             <h2>In the news</h2>
             {news.map((n) => (
               <a key={n.href} className="news-card wiggle" href={n.href} target="_blank" rel="noreferrer" style={{ background: n.color }}>
-                <img src={n.img} alt={n.alt} loading="lazy" />
+                <img className={n.portrait ? "portrait" : undefined} src={n.img} alt={n.alt} loading="lazy" />
                 <span className="news-text">
                   <span className="mono small muted">{n.isNew && <span className="new">Featured</span>}{n.meta}</span>
                   <span className="news-title">{n.title}</span>

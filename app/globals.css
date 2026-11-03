@@ -196,6 +196,8 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
 .news-list h2 { font-size: clamp(40px, 5vw, 56px); }
 .news-card { display: flex; gap: 18px; align-items: center; padding: 14px; border: 1.5px solid var(--ink); border-radius: 22px; text-decoration: none; }
 .news-card img { width: 120px; height: 90px; object-fit: cover; border-radius: 12px; border: 1.5px solid var(--ink); flex-shrink: 0; }
+/* tall images (journal covers) fill the same 4:3 frame, cropped from the top so the title shows */
+.news-card img.portrait { object-position: 50% 0%; }
 .news-text { display: flex; flex-direction: column; gap: 4px; }
 .news-title { font-family: var(--display); font-weight: 500; font-size: 21px; line-height: 1.25; }
 .new { display: inline-block; margin-right: 8px; padding: 1px 8px; background: var(--pink); border: 1.5px solid var(--ink); border-radius: 8px; font-family: var(--display); font-weight: 600; color: var(--ink); }
