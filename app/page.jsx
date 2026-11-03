@@ -111,7 +111,7 @@ const news = [
     img: "/csun-newsroom-iron-core.jpg", alt: "Illustration of Earth and its core accompanying a CSUN Newsroom article about iron under pressure",
     meta: "NOV 2025 · CSUN NEWSROOM", title: "Study by CSUN Prof Upends Understanding of What Happens to Iron at Earth’s Core", color: "#FFFFFF" },
   { href: "https://t.e2ma.net/webview/it10xk/de0c2a38558e5a239902e187dd02712e",
-    img: "/our-admitted-matadors-day.jpeg", alt: "Office of Undergraduate Research newsletter preview featuring Admitted Matadors Day",
+    img: "/our-admitted-matadors-day-photo.jpg", alt: "Samantha Ellis sharing undergraduate research resources with prospective students at CSUN’s Admitted Matadors Day",
     meta: "OFFICE OF UNDERGRADUATE RESEARCH NEWSLETTER", title: "Graduate peer mentoring and undergraduate research outreach", color: "#FFFFFF" },
 ];
 
