@@ -162,16 +162,16 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
 .pdf { right: 10px; background: #FFFFFF; font-size: 12px; }
 
 /* ---------- teaching ---------- */
-.teaching { background: #DDF3F7; margin: 96px max(24px, calc((100vw - 1344px) / 2)) 0; }
-.teaching-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 56px; }
-.teaching-copy { display: flex; flex-direction: column; gap: 20px; }
-.teaching-copy h2 { font-size: clamp(34px, 4vw, 48px); line-height: 1.08; }
-.teaching-copy > p { font-size: 17px; line-height: 1.65; }
-.roles { display: flex; flex-direction: column; gap: 8px; }
-.role { display: flex; gap: 14px; align-items: center; padding: 10px 14px; background: #FFFFFF; border: 1.5px solid var(--ink); border-radius: 18px; }
-.role-badge { width: 42px; height: 42px; flex-shrink: 0; border-radius: 12px; border: 1.5px solid var(--ink); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; }
-.role strong { font-size: 16px; display: block; }
-.role-meta { display: block; font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+.teaching { background: #DDF3F7; margin: 96px max(24px, calc((100vw - 1344px) / 2)) 0; padding: 44px 48px; }
+.teaching-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 40px; }
+.teaching-copy { display: flex; flex-direction: column; gap: 14px; }
+.teaching-copy h2 { font-size: clamp(28px, 3vw, 36px); line-height: 1.1; }
+.teaching-copy > p { font-size: 16px; line-height: 1.6; }
+.roles { display: flex; flex-direction: column; gap: 6px; }
+.role { display: flex; gap: 12px; align-items: center; padding: 7px 12px; background: #FFFFFF; border: 1.5px solid var(--ink); border-radius: 18px; }
+.role-badge { width: 34px; height: 34px; flex-shrink: 0; border-radius: 10px; font-size: 14px; border: 1.5px solid var(--ink); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; }
+.role strong { font-size: 15px; display: block; }
+.role-meta { display: block; font-size: 12.5px; color: var(--muted); }
 .role p { font-size: 14.5px; line-height: 1.55; }
 .quotes { display: flex; flex-direction: column; gap: 24px; justify-content: center; }
 .bubble { margin: 0; max-width: 480px; padding: 20px 24px; border: 1.5px solid var(--ink); }
@@ -179,8 +179,10 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
 .bubble cite { display: block; font-style: normal; font-size: 13px; color: var(--muted); padding-top: 8px; }
 .bubble-left { align-self: flex-start; border-radius: 26px 26px 26px 6px; }
 .bubble-right { align-self: flex-end; border-radius: 26px 26px 6px 26px; }
-.photo-strip { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 22px; margin-top: 48px; }
-.photo-strip .polaroid img { aspect-ratio: 1 / 1; }
+.photo-strip { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; margin-top: 32px; }
+.photo-strip .polaroid img { aspect-ratio: 4 / 3; }
+.photo-strip .polaroid { padding: 8px 8px 10px; }
+.photo-strip .polaroid figcaption { font-size: 13px; padding-top: 8px; }
 .swipe-hint { display: none; }
 .polaroid { margin: 0; padding: 10px 10px 14px; background: #FFFFFF; border: 1.5px solid var(--ink); box-shadow: var(--shadow); transform: rotate(var(--tilt, 0deg)); transition: transform .25s ease; }
 .polaroid:hover { transform: rotate(0deg) scale(1.03); }
@@ -260,11 +262,11 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
 .atom-note { font-size: 12px; }
 
 /* calmer quotes: one card, divided list */
-.quotes { background: #FFFFFF; border: 1.5px solid var(--ink); border-radius: 24px; padding: 32px 36px; gap: 0; justify-content: space-between; align-self: stretch; }
+.quotes { background: #FFFFFF; border: 1.5px solid var(--ink); border-radius: 24px; padding: 22px 28px; gap: 0; justify-content: space-between; align-self: stretch; }
 .quotes .bubble { flex: 1; display: flex; flex-direction: column; justify-content: center; }
 .quotes .eyebrow { margin-bottom: 8px; }
-.bubble, .bubble-left, .bubble-right { max-width: none; align-self: stretch; background: none; border: none; border-radius: 0; padding: 18px 0; border-top: 1px solid #DDE1F2; }
-.bubble p { font-size: 19px; font-style: italic; font-weight: 450; }
+.bubble, .bubble-left, .bubble-right { max-width: none; align-self: stretch; background: none; border: none; border-radius: 0; padding: 12px 0; border-top: 1px solid #DDE1F2; }
+.bubble p { font-size: 17px; font-style: italic; font-weight: 450; }
 
 /* ---------- phones ---------- */
 @media (max-width: 720px) {
