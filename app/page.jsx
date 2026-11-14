@@ -262,7 +262,7 @@ export default function Page() {
           <div className="teaching-grid">
             <div className="teaching-copy">
               <span className="elfbar" aria-hidden="true" /><span className="eyebrow">TEACHING · MENTORING · SERVICE</span>
-              <h2>Your path can be nonlinear and still lead somewhere meaningful.</h2>
+              <h2>Teaching</h2>
               <div className="roles">
                 {roles.map((r) => (
                   <div key={r.title} className="role">
