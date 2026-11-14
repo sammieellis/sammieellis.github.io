@@ -262,8 +262,8 @@ export default function Page() {
           <div className="teaching-grid">
             <div className="teaching-copy">
               <span className="elfbar" aria-hidden="true" /><span className="eyebrow">TEACHING · MENTORING · SERVICE</span>
-              <h2>Teaching</h2>
-              <p>At CSUN I’ve taught chemistry labs and helped students find their way into research, from joining a lab to applying to grad school.</p>
+              <h2>Teaching &amp; mentoring</h2>
+              <p>As a first-generation college student, I know how much a good mentor can matter. I try to be that for other students: someone they can ask questions and figure things out with.</p>
               <div className="roles">
                 {roles.map((r) => (
                   <div key={r.title} className="role">
