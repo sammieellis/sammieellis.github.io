@@ -301,3 +301,7 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
   .tile-label { font-size: 13px; }
   .hero h1 { font-size: 40px; }
 }
+
+/* news header: title with older/newer arrows */
+.news-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.news-head .carousel-arrows { display: flex; align-items: center; gap: 10px; }
