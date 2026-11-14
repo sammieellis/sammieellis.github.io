@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 // Horizontal card row with previous/next arrows; also scrolls by swipe or trackpad.
 // The arrows only appear once there are more cards than fit on screen.
-export default function Carousel({ head, actions, label, children }) {
+export default function Carousel({ head, actions, label, trackClass, children }) {
   const track = useRef(null);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(false);
@@ -46,7 +46,7 @@ export default function Carousel({ head, actions, label, children }) {
           )}
         </div>
       </div>
-      <div className="carousel-track" ref={track} role="region" aria-label={label} tabIndex={0}>
+      <div className={trackClass ? `carousel-track ${trackClass}` : "carousel-track"} ref={track} role="region" aria-label={label} tabIndex={0}>
         {children}
       </div>
     </>

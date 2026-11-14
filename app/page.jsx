@@ -12,8 +12,8 @@ const navTiles = [
   { n: 1, sym: "Rs", label: "Research", href: "#research", color: "#7FD9A0" },
   { n: 2, sym: "Pb", label: "Publications", href: "#publications", color: "#9DB0FF" },
   { n: 3, sym: "Pr", label: "Presentations", href: "#presentations", color: "#F6D743" },
-  { n: 4, sym: "Te", label: "Teaching", href: "#teaching", color: "#FFB8A6" },
-  { n: 5, sym: "Nw", label: "News", href: "#news", color: "#7FDDEB" },
+  { n: 4, sym: "Nw", label: "News", href: "#news", color: "#7FDDEB" },
+  { n: 5, sym: "Te", label: "Teaching", href: "#teaching", color: "#FFB8A6" },
 ];
 
 const publications = [
@@ -78,11 +78,11 @@ const presentations = [
 ];
 
 const roles = [
-  { badge: "TA", color: "#7FD9A0", title: "Teaching Assistant", meta: "General & Organic Chemistry Labs · CSUN",
+  { badge: "TA", color: "#7FD9A0", title: "Teaching Assistant", meta: "General & Organic Chemistry Labs · CSUN", short: "Gen & Organic Chem Labs · CSUN",
     text: "I taught six laboratory sections across general and organic chemistry, combining pre-lab instruction with hands-on guidance in quantitative analysis, spectroscopy, scientific documentation, and lab safety." },
-  { badge: "Pm", color: "#9DB0FF", title: "Graduate Peer Mentor", meta: "Office of Undergraduate Research · CSUN",
+  { badge: "Pm", color: "#9DB0FF", title: "Graduate Peer Mentor", meta: "Office of Undergraduate Research · CSUN", short: "Undergrad Research Office · CSUN",
     text: "I led workshops and individual advising for students joining research groups, preparing conference materials, applying to graduate programs, and developing CVs and personal statements. I also supported campus outreach events connecting prospective and high-school students with research opportunities." },
-  { badge: "Jc", color: "#F6D743", title: "Journal Club co-founder", meta: "Chemistry & Biochemistry Journal Club · CSUN",
+  { badge: "Jc", color: "#F6D743", title: "Journal Club co-founder", meta: "Chemistry & Biochemistry Journal Club · CSUN", short: "Chem & Biochem Journal Club · CSUN",
     text: "A monthly, student-led forum for reading current chemical literature, where students can practice presenting papers, ask technical questions, and exchange feedback in a low-pressure setting." },
 ];
 
@@ -258,21 +258,27 @@ export default function Page() {
           </Carousel>
         </section>
 
+        <section id="news" className="wrap section news">
+          <figure className="polaroid big" style={{ "--tilt": "-1.5deg" }}>
+            <img src="/samantha-ellis-portrait.jpg" alt="Samantha Ellis holding her dog" />
+            <figcaption>me + my favorite lab buddy</figcaption>
+          </figure>
+          <NewsList items={news} />
+        </section>
+
         <section id="teaching" className="panel teaching">
           <div className="teaching-grid">
             <div className="teaching-copy">
               <span className="elfbar" aria-hidden="true" /><span className="eyebrow">TEACHING · MENTORING · SERVICE</span>
-              <h2>Your path can be nonlinear and still lead somewhere meaningful.</h2>
-              <p>
-                As a first-generation college student, I know how much a good mentor matters. I try to be that for others: I challenge students to grow, help them work through uncertainty, and remind them they don’t need everything figured out.
-              </p>
+              <h2>Teaching &amp; community</h2>
+              <p>I care about building a scientific community where students feel welcome to ask questions, share their work, and get involved in research. As a first-generation college student, I know how much that kind of support can matter.</p>
               <div className="roles">
                 {roles.map((r) => (
                   <div key={r.title} className="role">
                     <span className="role-badge" style={{ background: r.color }}>{r.badge}</span>
                     <div>
                       <strong>{r.title}</strong>
-                      <span className="role-meta">{r.meta}</span>
+                      <span className="role-meta"><span className="meta-full">{r.meta}</span><span className="meta-short">{r.short}</span></span>
                     </div>
                   </div>
                 ))}
@@ -288,23 +294,16 @@ export default function Page() {
               ))}
             </div>
           </div>
-          <span className="swipe-hint mono small muted" aria-hidden="true">swipe for more photos →</span>
-          <div className="photo-strip" role="region" aria-label="Teaching and outreach photos" tabIndex={0}>
-            {photos.map((ph) => (
-              <figure key={ph.src} className="polaroid" style={{ "--tilt": `${ph.tilt}deg` }}>
-                <img src={ph.src} alt={ph.alt} loading="lazy" />
-                <figcaption>{ph.caption}</figcaption>
-              </figure>
-            ))}
+          <div className="teaching-photos">
+            <Carousel label="teaching and outreach photos" trackClass="photo-track" head={<span className="eyebrow">IN THE CLASSROOM &amp; AROUND CAMPUS</span>}>
+              {photos.map((ph) => (
+                <figure key={ph.src} className="polaroid" style={{ "--tilt": `${ph.tilt}deg` }}>
+                  <img src={ph.src} alt={ph.alt} loading="lazy" />
+                  <figcaption>{ph.caption}</figcaption>
+                </figure>
+              ))}
+            </Carousel>
           </div>
-        </section>
-
-        <section id="news" className="wrap section news">
-          <figure className="polaroid big" style={{ "--tilt": "-1.5deg" }}>
-            <img src="/samantha-ellis-portrait.jpg" alt="Samantha Ellis holding her dog" />
-            <figcaption>me + my favorite lab buddy</figcaption>
-          </figure>
-          <NewsList items={news} />
         </section>
       </main>
 
