@@ -173,6 +173,7 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
 .role-badge { width: 34px; height: 34px; flex-shrink: 0; border-radius: 10px; font-size: 14px; border: 1.5px solid var(--ink); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; }
 .role strong { font-size: 15px; display: block; }
 .role-meta { display: block; font-size: 12.5px; color: var(--muted); }
+.meta-short { display: none; }
 .role p { font-size: 14.5px; line-height: 1.55; }
 .quotes { display: flex; flex-direction: column; gap: 24px; justify-content: center; }
 .bubble { margin: 0; max-width: 480px; padding: 20px 24px; border: 1.5px solid var(--ink); }
@@ -254,7 +255,12 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
   .carousel-track.photo-track { grid-auto-columns: calc((100% - 24px) / 2); }
   .news { gap: 40px; }
   .polaroid.big { max-width: 210px; }
-  .news > .polaroid { margin-top: 0; justify-self: center; }
+  /* phones: news first, then a smaller photo of Sammie below it */
+  .news > .polaroid { margin-top: 0; justify-self: center; order: 2; }
+  .news > .news-list { order: 1; }
+  .news > .polaroid.big { max-width: 170px; }
+  .meta-full { display: none; }
+  .meta-short { display: inline; }
   .news-card img { width: 88px; height: 70px; }
   .news-title { font-size: 18px; }
   .footer { padding: 40px 20px 24px; }

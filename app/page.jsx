@@ -78,11 +78,11 @@ const presentations = [
 ];
 
 const roles = [
-  { badge: "TA", color: "#7FD9A0", title: "Teaching Assistant", meta: "General & Organic Chemistry Labs · CSUN",
+  { badge: "TA", color: "#7FD9A0", title: "Teaching Assistant", meta: "General & Organic Chemistry Labs · CSUN", short: "Gen & Organic Chem Labs · CSUN",
     text: "I taught six laboratory sections across general and organic chemistry, combining pre-lab instruction with hands-on guidance in quantitative analysis, spectroscopy, scientific documentation, and lab safety." },
-  { badge: "Pm", color: "#9DB0FF", title: "Graduate Peer Mentor", meta: "Office of Undergraduate Research · CSUN",
+  { badge: "Pm", color: "#9DB0FF", title: "Graduate Peer Mentor", meta: "Office of Undergraduate Research · CSUN", short: "Undergrad Research Office · CSUN",
     text: "I led workshops and individual advising for students joining research groups, preparing conference materials, applying to graduate programs, and developing CVs and personal statements. I also supported campus outreach events connecting prospective and high-school students with research opportunities." },
-  { badge: "Jc", color: "#F6D743", title: "Journal Club co-founder", meta: "Chemistry & Biochemistry Journal Club · CSUN",
+  { badge: "Jc", color: "#F6D743", title: "Journal Club co-founder", meta: "Chemistry & Biochemistry Journal Club · CSUN", short: "Chem & Biochem Journal Club · CSUN",
     text: "A monthly, student-led forum for reading current chemical literature, where students can practice presenting papers, ask technical questions, and exchange feedback in a low-pressure setting." },
 ];
 
@@ -278,7 +278,7 @@ export default function Page() {
                     <span className="role-badge" style={{ background: r.color }}>{r.badge}</span>
                     <div>
                       <strong>{r.title}</strong>
-                      <span className="role-meta">{r.meta}</span>
+                      <span className="role-meta"><span className="meta-full">{r.meta}</span><span className="meta-short">{r.short}</span></span>
                     </div>
                   </div>
                 ))}
