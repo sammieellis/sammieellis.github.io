@@ -87,6 +87,7 @@ const roles = [
 ];
 
 const quotes = [
+  { text: "Explains concepts in an efficient but also easy to understand way.", who: "General Chemistry II Lab student", color: "#FFFFFF", side: "left" },
   { text: "Sammie was very kind and patient and really easy to talk to throughout the semester.", who: "General Chemistry II Lab student", color: "#DDF5E4", side: "right" },
   { text: "She does want us to figure out things before we go to her, which I appreciate.", who: "Organic Chemistry I Lab student", color: "#FFF4BF", side: "left" },
 ];
@@ -262,9 +263,6 @@ export default function Page() {
             <div className="teaching-copy">
               <span className="elfbar" aria-hidden="true" /><span className="eyebrow">TEACHING · MENTORING · SERVICE</span>
               <h2>Your path can be nonlinear and still lead somewhere meaningful.</h2>
-              <p>
-                As a first-generation college student, I know how much a good mentor matters. I try to be that for others: I challenge students to grow, help them work through uncertainty, and remind them they don’t need everything figured out.
-              </p>
               <div className="roles">
                 {roles.map((r) => (
                   <div key={r.title} className="role">
