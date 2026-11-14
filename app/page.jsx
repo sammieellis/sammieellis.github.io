@@ -12,8 +12,8 @@ const navTiles = [
   { n: 1, sym: "Rs", label: "Research", href: "#research", color: "#7FD9A0" },
   { n: 2, sym: "Pb", label: "Publications", href: "#publications", color: "#9DB0FF" },
   { n: 3, sym: "Pr", label: "Presentations", href: "#presentations", color: "#F6D743" },
-  { n: 4, sym: "Te", label: "Teaching", href: "#teaching", color: "#FFB8A6" },
-  { n: 5, sym: "Nw", label: "News", href: "#news", color: "#7FDDEB" },
+  { n: 4, sym: "Nw", label: "News", href: "#news", color: "#7FDDEB" },
+  { n: 5, sym: "Te", label: "Teaching", href: "#teaching", color: "#FFB8A6" },
 ];
 
 const publications = [
@@ -258,11 +258,19 @@ export default function Page() {
           </Carousel>
         </section>
 
+        <section id="news" className="wrap section news">
+          <figure className="polaroid big" style={{ "--tilt": "-1.5deg" }}>
+            <img src="/samantha-ellis-portrait.jpg" alt="Samantha Ellis holding her dog" />
+            <figcaption>me + my favorite lab buddy</figcaption>
+          </figure>
+          <NewsList items={news} />
+        </section>
+
         <section id="teaching" className="panel teaching">
           <div className="teaching-grid">
             <div className="teaching-copy">
               <span className="elfbar" aria-hidden="true" /><span className="eyebrow">TEACHING · MENTORING · SERVICE</span>
-              <h2>Teaching &amp; mentoring</h2>
+              <h2>Teaching &amp; community</h2>
               <p>I care about building a scientific community where students feel welcome to ask questions, share their work, and get involved in research. As a first-generation college student, I know how much that kind of support can matter.</p>
               <div className="roles">
                 {roles.map((r) => (
@@ -296,14 +304,6 @@ export default function Page() {
               ))}
             </Carousel>
           </div>
-        </section>
-
-        <section id="news" className="wrap section news">
-          <figure className="polaroid big" style={{ "--tilt": "-1.5deg" }}>
-            <img src="/samantha-ellis-portrait.jpg" alt="Samantha Ellis holding her dog" />
-            <figcaption>me + my favorite lab buddy</figcaption>
-          </figure>
-          <NewsList items={news} />
         </section>
       </main>
 

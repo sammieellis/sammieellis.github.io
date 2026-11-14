@@ -163,7 +163,7 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
 
 /* ---------- teaching ---------- */
 /* broken into separate pieces: intro card, quotes card, photo row (no single wrapping panel) */
-.panel.teaching { background: none; border: none; border-radius: 0; max-width: 1280px; margin: 96px auto 0; padding: 0 40px; }
+.panel.teaching { background: none; border: none; border-radius: 0; max-width: 1280px; margin: 96px auto; padding: 0 40px; }
 .teaching-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; }
 .teaching-copy { display: flex; flex-direction: column; gap: 14px; background: #DDF3F7; border: 1.5px solid var(--ink); border-radius: 32px; padding: 36px 40px; }
 .teaching-copy h2 { font-size: clamp(26px, 2.6vw, 32px); line-height: 1.12; margin-bottom: 8px; }
@@ -193,7 +193,7 @@ mark { color: inherit; padding: 0 6px; border-radius: 6px; }
 .polaroid figcaption { font-family: var(--display); font-weight: 500; font-size: 14px; line-height: 1.3; text-align: center; padding-top: 10px; }
 
 /* ---------- news ---------- */
-.news { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 64px; align-items: center; padding-bottom: 96px; }
+.news { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 64px; align-items: center; }
 /* line the photo up with the first news card rather than centering it on the heading + list */
 .news > .polaroid { align-self: start; margin-top: 92px; }
 .polaroid.big { padding: 10px 10px 14px; box-shadow: 5px 6px 0 var(--ink); }
