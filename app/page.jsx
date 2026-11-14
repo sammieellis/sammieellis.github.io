@@ -263,7 +263,7 @@ export default function Page() {
             <div className="teaching-copy">
               <span className="elfbar" aria-hidden="true" /><span className="eyebrow">TEACHING · MENTORING · SERVICE</span>
               <h2>Teaching &amp; mentoring</h2>
-              <p>As a first-generation college student, I know how much a good mentor can matter. I try to be one for other students, whether they’re working through a tough lab, joining a research group, or applying to grad school.</p>
+              <p>I care about building a scientific community where students feel welcome to ask questions, share their work, and get involved in research. As a first-generation college student, I know how much that kind of support can matter.</p>
               <div className="roles">
                 {roles.map((r) => (
                   <div key={r.title} className="role">
