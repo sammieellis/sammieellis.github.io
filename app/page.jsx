@@ -87,7 +87,6 @@ const roles = [
 ];
 
 const quotes = [
-  { text: "Explains concepts in an efficient but also easy to understand way.", who: "General Chemistry II Lab student", color: "#FFFFFF", side: "left" },
   { text: "Sammie was very kind and patient and really easy to talk to throughout the semester.", who: "General Chemistry II Lab student", color: "#DDF5E4", side: "right" },
   { text: "She does want us to figure out things before we go to her, which I appreciate.", who: "Organic Chemistry I Lab student", color: "#FFF4BF", side: "left" },
 ];
@@ -288,14 +287,15 @@ export default function Page() {
               ))}
             </div>
           </div>
-          <span className="swipe-hint mono small muted" aria-hidden="true">swipe for more photos →</span>
-          <div className="photo-strip" role="region" aria-label="Teaching and outreach photos" tabIndex={0}>
-            {photos.map((ph) => (
-              <figure key={ph.src} className="polaroid" style={{ "--tilt": `${ph.tilt}deg` }}>
-                <img src={ph.src} alt={ph.alt} loading="lazy" />
-                <figcaption>{ph.caption}</figcaption>
-              </figure>
-            ))}
+          <div className="teaching-photos">
+            <Carousel label="teaching and outreach photos" trackClass="photo-track" head={<span className="eyebrow">IN THE CLASSROOM &amp; AROUND CAMPUS</span>}>
+              {photos.map((ph) => (
+                <figure key={ph.src} className="polaroid" style={{ "--tilt": `${ph.tilt}deg` }}>
+                  <img src={ph.src} alt={ph.alt} loading="lazy" />
+                  <figcaption>{ph.caption}</figcaption>
+                </figure>
+              ))}
+            </Carousel>
           </div>
         </section>
 
