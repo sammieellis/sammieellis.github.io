@@ -1,6 +1,7 @@
 import FunFactAtom from "./components/FunFactAtom";
 import Carousel from "./components/Carousel";
 import PressureExplorer from "./components/PressureExplorer";
+import NewsList from "./components/NewsList";
 
 const SCHOLAR = "https://scholar.google.com/citations?user=3hrvXUYAAAAJ&hl=en";
 const LINKEDIN = "https://www.linkedin.com/in/samantha-l-ellis/";
@@ -99,14 +100,19 @@ const photos = [
   { src: "/journal-club-materials-chemistry.jpeg", alt: "CSUN Chemistry and Biochemistry Journal Club members at a materials chemistry discussion", caption: "Materials chemistry night at Journal Club", tilt: -0.75 },
 ];
 
+// newest first
 const news = [
+  { href: "https://scientificintelligence.org/campaigns/osi-hackathon-2026/submissions/81",
+    img: "/osi-hackathon-2026-electride-detectives.jpg",
+    alt: "Electride Detectives team artwork: two cartoon robot detectives with magnifying glasses examining a crystal",
+    meta: "NOV 2026 · OSI HACKATHON", title: "Five AI agents walk into a hackathon… and leave with the MDRI Horizon Award", color: "#FFFFFF" },
   { href: "https://www.oaepublish.com/volumes/jmi.2052",
     img: "/jmi-cover-2026-sep.jpg", portrait: true,
     alt: "Cover of Journal of Materials Informatics, Volume 6, Issue 3, September 2026, featuring the ELFNet paper by Austin Ellis, Samantha Ellis and Maosheng Miao",
-    meta: "SEP 2026 · JOURNAL OF MATERIALS INFORMATICS", title: "Our ELFNet paper is featured on the cover of Journal of Materials Informatics", isNew: true, color: "#FFF4BF" },
+    meta: "SEP 2026 · JOURNAL OF MATERIALS INFORMATICS", title: "ELFNet gets the cover of Journal of Materials Informatics", color: "#FFFFFF" },
   { href: "https://newsroom.csun.edu/2026/05/14/grad-student-and-undergrad-win-national-science-foundation-research-fellowship/",
     img: "/csun-newsroom-grfp.jpg", alt: "Samantha Ellis standing beside her computational materials research poster",
-    meta: "MAY 2026 · CSUN NEWSROOM", title: "Graduate researchers receive National Science Foundation fellowships", isNew: true, color: "#FFF4BF" },
+    meta: "MAY 2026 · CSUN NEWSROOM", title: "Graduate researchers receive National Science Foundation fellowships", color: "#FFFFFF" },
   { href: "https://newsroom.csun.edu/2025/11/18/study-by-csun-prof-upends-understanding-of-what-happens-to-iron-at-earths-core/",
     img: "/csun-newsroom-iron-core.jpg", alt: "Illustration of Earth and its core accompanying a CSUN Newsroom article about iron under pressure",
     meta: "NOV 2025 · CSUN NEWSROOM", title: "Study by CSUN Prof Upends Understanding of What Happens to Iron at Earth’s Core", color: "#FFFFFF" },
@@ -174,7 +180,7 @@ export default function Page() {
             <p className="lead">
               I’m a computational materials chemist studying how chemical bonds rewrite their rules under extreme conditions, from{" "}
               <mark className="hl-peach">iron at Earth’s core</mark> to <mark className="hl-lav">core electrons that start bonding</mark>, using{" "}
-              <mark className="hl-mint">machine learning</mark> to accelerate the search for new superhydrides.
+              <mark className="hl-mint">machine learning</mark> to guide materials discovery.
             </p>
             <p className="sub">
               I’m completing my M.S. with Prof. Maosheng Miao at CSUN and working as a Research Student Intern at Oak Ridge National Laboratory with Eva Zarkadoula and Jingsong Huang.
@@ -298,18 +304,7 @@ export default function Page() {
             <img src="/samantha-ellis-portrait.jpg" alt="Samantha Ellis holding her dog" />
             <figcaption>me + my favorite lab buddy</figcaption>
           </figure>
-          <div className="news-list">
-            <h2>In the news</h2>
-            {news.map((n) => (
-              <a key={n.href} className="news-card wiggle" href={n.href} target="_blank" rel="noreferrer" style={{ background: n.color }}>
-                <img className={n.portrait ? "portrait" : undefined} src={n.img} alt={n.alt} loading="lazy" />
-                <span className="news-text">
-                  <span className="mono small muted">{n.isNew && <span className="new">Featured</span>}{n.meta}</span>
-                  <span className="news-title">{n.title}</span>
-                </span>
-              </a>
-            ))}
-          </div>
+          <NewsList items={news} />
         </section>
       </main>
 
@@ -321,7 +316,6 @@ export default function Page() {
           </svg>
           <div>
             <p className="footer-title">Let’s talk chemistry.</p>
-            <p className="footer-sub">Open to collaborations, questions, and conversations about electronic structure.</p>
           </div>
         </div>
         <div className="footer-links">
