@@ -102,6 +102,10 @@ const photos = [
 
 // newest first
 const news = [
+  { href: "https://newsroom.csun.edu/2026/11/17/csun-researchers-use-hardcore-ai-model-to-take-big-step-in-field-of-materials-science/",
+    img: "/csun-newsroom-elfnet.jpg",
+    alt: "Diagram of the ELFNet neural network, which turns a 3D grid of superposed atomic densities into a predicted electron localization function grid",
+    meta: "NOV 2026 · CSUN NEWSROOM", title: "CSUN Researchers Use Hardcore AI Model to Take ‘Big Step’ in Field of Materials Science", color: "#FFFFFF" },
   { href: "https://scientificintelligence.org/campaigns/osi-hackathon-2026/submissions/81",
     img: "/osi-hackathon-2026-electride-detectives.jpg",
     alt: "Electride Detectives team artwork: two cartoon robot detectives with magnifying glasses examining a crystal",
